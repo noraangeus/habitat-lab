@@ -1,0 +1,4939 @@
+{
+    "translation_origin": "asset_local",
+    "default_lighting": "",
+    "navmesh_instance": "",
+    "semantic_scene_instance": "hssd_ssd_map",
+    "object_instances": [
+        {
+            "template_name": "cb47ce31bd4309c8b3c99a1d53db43f7046cb489",
+            "translation": [
+                3.7058899,
+                4.76837158203125e-7,
+                -7.8203897
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "ff58c8c8355fe29fbe0284bef176aa9476e57622",
+            "translation": [
+                -16.6628494,
+                -2.0349398255348206e-7,
+                3.41627
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.9730273,
+                0.9999998,
+                1.4777078
+            ]
+        },
+        {
+            "template_name": "49793cec056d084592ad23345e466c9ba0077b55",
+            "translation": [
+                2.2885799,
+                -3.5762786865234377e-7,
+                6.0286388
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "49793cec056d084592ad23345e466c9ba0077b55",
+            "translation": [
+                -6.05198,
+                -1.4901161193847657e-7,
+                2.5693295
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "49793cec056d084592ad23345e466c9ba0077b55",
+            "translation": [
+                -7.4528999,
+                2.980232238769531e-7,
+                -4.9113297
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "49793cec056d084592ad23345e466c9ba0077b55",
+            "translation": [
+                -9.5258102,
+                2.980232238769531e-7,
+                -4.8721895
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "e89d2c57fe1f9bda6ad7ebb109505be1ce409380",
+            "translation": [
+                -10.4585103,
+                0.0,
+                -0.0450398
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2792868,
+                0.9999998,
+                1.2349395
+            ]
+        },
+        {
+            "template_name": "1d546f7ce3e3c5ca01b60041b56d9ab5f702a644",
+            "translation": [
+                7.9742703,
+                1.5625784,
+                -2.3600664
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.889983,
+                0.9999998,
+                1.5952097
+            ]
+        },
+        {
+            "template_name": "1d546f7ce3e3c5ca01b60041b56d9ab5f702a644",
+            "translation": [
+                7.9742703,
+                1.5625785,
+                -5.2805681
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.096541,
+                0.9999998,
+                1.5952097
+            ]
+        },
+        {
+            "template_name": "42c2fce42ed600de5f0c6919ba47fe97e60ab673",
+            "translation": [
+                2.16087,
+                -1.1920928955078126e-7,
+                1.82622
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "42c2fce42ed600de5f0c6919ba47fe97e60ab673",
+            "translation": [
+                0.85885,
+                -1.1920928955078126e-7,
+                1.8262199
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "6779bf78a2d163190f0e82d3e74c592002275d9c",
+            "translation": [
+                3.55042,
+                4.172325134277344e-7,
+                -6.8270397
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "7a786f974fe7564df3fda1359c4a6f7f4f2afe61",
+            "translation": [
+                6.7441396,
+                0.0,
+                -0.1016798
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -13.8400001,
+                -1.1920928955078126e-7,
+                1.4013012
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2192169,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -13.8400001,
+                -1.1920928955078126e-7,
+                2.8964922
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2539377,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -11.4066896,
+                -1.1920928955078126e-7,
+                2.8949873
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2539377,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -18.8886508,
+                1.1920928955078126e-7,
+                -1.52678
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.1665972,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -18.8886508,
+                0.0,
+                -0.0818959
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2400926,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -17.2141189,
+                1.1920928955078126e-7,
+                -1.6143341
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0236028,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -18.0409355,
+                1.1920928955078126e-7,
+                -1.9425598
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9266622,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -16.9452056,
+                0.0,
+                -0.7078899
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9266622,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -11.4066896,
+                0.0,
+                -0.2411123
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2539377,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "115400dd7dd9aa26ca595007f18b5a515626554d",
+            "translation": [
+                -11.4066896,
+                -1.1920928955078126e-7,
+                1.3237091
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.3513096,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "983ef4ef38a08850204a31986545f0e01a8dc0af",
+            "translation": [
+                -1.6506083,
+                4.76837158203125e-7,
+                -7.8520193
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.3917584,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "6d6f941aefa3f1c6702dd367f6827b6de6a944a1",
+            "translation": [
+                -0.7561414,
+                3.5762786865234377e-7,
+                -5.9194998
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.3728339,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "f2f57cdf70b24f088e53c421cef1dfc1a606367e",
+            "translation": [
+                -3.3544797,
+                1.7500002,
+                -5.9390392
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "e56819a302075d53ac8e2e72c9957b2b3b72439e",
+            "translation": [
+                -18.7343997,
+                -4.76837158203125e-7,
+                7.5089297
+            ],
+            "rotation": [
+                0.3932008,
+                0.0,
+                0.9194526,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.8525608,
+                0.9762606,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "e56819a302075d53ac8e2e72c9957b2b3b72439e",
+            "translation": [
+                -18.0331802,
+                -4.76837158203125e-7,
+                8.2284994
+            ],
+            "rotation": [
+                0.3932008,
+                0.0,
+                0.9194526,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.8525608,
+                0.9762606,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "e56819a302075d53ac8e2e72c9957b2b3b72439e",
+            "translation": [
+                -15.4305801,
+                -4.76837158203125e-7,
+                8.2410688
+            ],
+            "rotation": [
+                -0.3851597,
+                0.0,
+                0.9228497,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.8525606,
+                0.9762606,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "e56819a302075d53ac8e2e72c9957b2b3b72439e",
+            "translation": [
+                -14.7338199,
+                -4.76837158203125e-7,
+                7.5096793
+            ],
+            "rotation": [
+                -0.4049035,
+                0.0,
+                0.9143592,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.8525608,
+                0.9762606,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "e56819a302075d53ac8e2e72c9957b2b3b72439e",
+            "translation": [
+                -19.0541706,
+                -3.5762786865234377e-7,
+                6.5202393
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9999998,
+                0.9762606,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "e56819a302075d53ac8e2e72c9957b2b3b72439e",
+            "translation": [
+                -17.24724,
+                -4.76837158203125e-7,
+                8.5608386
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.8672415,
+                0.9762606,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "e56819a302075d53ac8e2e72c9957b2b3b72439e",
+            "translation": [
+                -16.22443,
+                -4.76837158203125e-7,
+                8.5686988
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.8672415,
+                0.9762606,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "553f979d188cc4f3c39fd85d12f0edfe90c27f5b",
+            "translation": [
+                -10.1470499,
+                3.427267074584961e-7,
+                -5.7907795
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8b6b15d5222cc51a287af92bf82e6b6e42ca235e_part_1",
+            "translation": [
+                -5.2767901,
+                5.364418029785156e-7,
+                -5.8553194
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8b6b15d5222cc51a287af92bf82e6b6e42ca235e_part_2",
+            "translation": [
+                -5.9099545,
+                3.8743019104003908e-7,
+                -5.8548312
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8b6b15d5222cc51a287af92bf82e6b6e42ca235e_part_2",
+            "translation": [
+                -5.9099545,
+                4.172325134277344e-7,
+                -6.499238
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8b6b15d5222cc51a287af92bf82e6b6e42ca235e_part_2",
+            "translation": [
+                -5.2783122,
+                4.172325134277344e-7,
+                -6.9271588
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8b6b15d5222cc51a287af92bf82e6b6e42ca235e_part_2",
+            "translation": [
+                -4.6486344,
+                3.5762786865234377e-7,
+                -6.4992389
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8b6b15d5222cc51a287af92bf82e6b6e42ca235e_part_2",
+            "translation": [
+                -4.6486344,
+                2.980232238769531e-7,
+                -5.8548321
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8b6b15d5222cc51a287af92bf82e6b6e42ca235e_part_2",
+            "translation": [
+                -4.6486344,
+                2.682209014892578e-7,
+                -5.212356
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8b6b15d5222cc51a287af92bf82e6b6e42ca235e_part_2",
+            "translation": [
+                -5.2783112,
+                2.980232238769531e-7,
+                -4.7815403
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8b6b15d5222cc51a287af92bf82e6b6e42ca235e_part_2",
+            "translation": [
+                -5.9099545,
+                3.5762786865234377e-7,
+                -5.2123551
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "9c4a2899547a09f196bf87e368cc7835e035462d",
+            "translation": [
+                -3.9128398,
+                -2.086162567138672e-7,
+                3.7353999
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2194625,
+                1.161435,
+                1.1950693
+            ]
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                2.7415399,
+                -1.7881393432617188e-7,
+                3.0646395
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                1.99511,
+                -1.7881393432617188e-7,
+                3.0546298
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                0.9961199,
+                -1.7881393432617188e-7,
+                3.0839698
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                -3.0842401,
+                -2.086162567138672e-7,
+                3.7245097
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9999998,
+                0.6643546,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                -3.8684899,
+                -2.682209014892578e-7,
+                4.5337595
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                0.6643546,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                -4.7219099,
+                -2.086162567138672e-7,
+                3.7073397
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9999998,
+                0.6643546,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                -3.9098498,
+                -1.7881393432617188e-7,
+                2.9150598
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                0.6643546,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                0.2496899,
+                -1.7881393432617188e-7,
+                3.07395
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                -4.3682799,
+                5.960464477539063e-8,
+                -1.3013598
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "670c0caf8cb7df8466c675d7c91f7877840f9513",
+            "translation": [
+                -4.3682799,
+                5.960464477539063e-8,
+                -0.7735399
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c2cbb4677994a6d2fbd4796360fe7538d9189eda",
+            "translation": [
+                5.4427399,
+                2.384185791015625e-7,
+                -3.9097096
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "576f0a57271ccc62554b2603a48047854254119d",
+            "translation": [
+                1.40188,
+                1.6836391,
+                10.5918083
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "6b7c3c8a62adbcd95d98970551d054d420e36e4e",
+            "translation": [
+                -18.1386604,
+                -1.7881393432617188e-7,
+                3.4893498
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "96ec6a8e24cb51c624a414039dec6fabc8bab35c",
+            "translation": [
+                -15.6031951,
+                -4.470348358154297e-7,
+                7.5398259
+            ],
+            "rotation": [
+                -0.3947438,
+                0.0,
+                0.9187911,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "96ec6a8e24cb51c624a414039dec6fabc8bab35c",
+            "translation": [
+                -17.8817863,
+                -4.470348358154297e-7,
+                7.5156722
+            ],
+            "rotation": [
+                0.3867109,
+                0.0,
+                0.9222009,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "2a1b54fedd2a492220ebf3e97243dec9f9cc8d85",
+            "translation": [
+                -11.8921804,
+                2.682209014892578e-7,
+                -4.3843493
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "e81684f7e86116a81839f19a68c4b7e7b50d18ac",
+            "translation": [
+                7.2190599,
+                2.682209014892578e-7,
+                -4.5208897
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "e81684f7e86116a81839f19a68c4b7e7b50d18ac",
+            "translation": [
+                4.5025701,
+                2.682209014892578e-7,
+                -4.5208897
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "997cff30d7278e734d17f9b5fe8033782dbcaa76",
+            "translation": [
+                -13.8844413,
+                5.960464477539063e-8,
+                -0.7993348
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "997cff30d7278e734d17f9b5fe8033782dbcaa76",
+            "translation": [
+                -14.6444396,
+                5.960464477539063e-8,
+                -0.7993348
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "5f4a14a4e5bc2feb7388b5d18d63350c38600f29",
+            "translation": [
+                2.4704699,
+                7.748603820800781e-7,
+                -13.0982389
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8d97968066d74649237e6afe846f1f33a4c67571",
+            "translation": [
+                -3.6318297,
+                3.5762786865234377e-7,
+                -5.9815392
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "7c3c32c496d7eb37286ff8ad3ddf5384ba30b2ae",
+            "translation": [
+                10.1077899,
+                -2.384185791015625e-7,
+                3.5894596
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "9449ef7831c43bc0db23aac79ea442aa71d0db11",
+            "translation": [
+                1.2322,
+                0.0,
+                -0.0149298
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                1.2499997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "bc4f83ffe12ce0b34314e3fea983c360d2ebdd5e",
+            "translation": [
+                -16.5761299,
+                8.940696716308594e-8,
+                -1.67523
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.8800001,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "0da47b2398c9e8239480621b54a8494e48b33040",
+            "translation": [
+                2.707005,
+                1.7500003,
+                -6.7456393
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "0da47b2398c9e8239480621b54a8494e48b33040",
+            "translation": [
+                11.1049156,
+                1.7499996,
+                3.5640799
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "a3037f0f7fbe458c01e019a5db8c4d9914ed0f10",
+            "translation": [
+                5.3593549,
+                1.74836,
+                -4.2852149
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "84ec73df1d73e318c129fe1e41f417f7376f9e78",
+            "translation": [
+                6.349565,
+                1.74836,
+                -4.2852149
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "xxxxdac4e105x2023x4003x8215x2638af0a0a2c",
+            "translation": [
+                -9.8028097,
+                1.7500002,
+                -4.9652194
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "20e9177223672e9bf6bd79a4db6022cb27c03e58",
+            "translation": [
+                7.48846,
+                2.384185791015625e-7,
+                -3.8102197
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "20e9177223672e9bf6bd79a4db6022cb27c03e58",
+            "translation": [
+                7.5395994,
+                5.960464477539063e-8,
+                -0.8381798
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "4e8ab06e4f325efc525ba7c28229f17d1d4439ff",
+            "translation": [
+                5.7846598,
+                1.7500003,
+                -8.1520137
+            ],
+            "rotation": [
+                0.7071068,
+                0.7071067,
+                0.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "54ff94b631874019138af5091e41c386e6183749",
+            "translation": [
+                -8.48878,
+                -5.9138983488082889e-8,
+                0.9957398
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                2.0253,
+                0.9999998,
+                1.4984396
+            ]
+        },
+        {
+            "template_name": "611d69ee5e8383e70431f634f63f9682861eb2a8",
+            "translation": [
+                2.44738,
+                5.960464477539063e-7,
+                -10.4773893
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c5f8140c2c12b63edb31cd47ea966575926fcacc",
+            "translation": [
+                -14.2606801,
+                1.7499996,
+                -0.4931797
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "e52ee0b894645123ac91a63ef2737b3fab39c47c",
+            "translation": [
+                -14.2785005,
+                1.7499996,
+                3.35361
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "b2a3170effd0ed0a47d335793daaf91d0599c295",
+            "translation": [
+                9.1078195,
+                6.556510925292969e-7,
+                -10.8151702
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "b2a3170effd0ed0a47d335793daaf91d0599c295",
+            "translation": [
+                6.6195402,
+                -1.1920928955078126e-7,
+                1.9987697
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "b2a3170effd0ed0a47d335793daaf91d0599c295",
+            "translation": [
+                0.73649,
+                2.384185791015625e-7,
+                -3.7743496
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "a19b47699883e5841599452274d671a1bb2c775e",
+            "translation": [
+                4.54642,
+                0.0,
+                0.079745
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "249f9e0c9f1d98925459f980fdc5696c5e5babc5",
+            "translation": [
+                -3.05445,
+                3.5762786865234377e-7,
+                -5.9194998
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "249f9e0c9f1d98925459f980fdc5696c5e5babc5",
+            "translation": [
+                -2.1533899,
+                3.5762786865234377e-7,
+                -5.9194998
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "249f9e0c9f1d98925459f980fdc5696c5e5babc5",
+            "translation": [
+                -0.26153,
+                3.5762786865234377e-7,
+                -5.9194998
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "249f9e0c9f1d98925459f980fdc5696c5e5babc5",
+            "translation": [
+                -1.2523299,
+                3.5762786865234377e-7,
+                -5.9194998
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bdab4ca579230f7652590bc19fa00a35701857ef",
+            "translation": [
+                4.6699399,
+                -5.960464477539063e-8,
+                0.9026348
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bdab4ca579230f7652590bc19fa00a35701857ef",
+            "translation": [
+                4.6699399,
+                -1.7881393432617188e-7,
+                3.2177047
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bdab4ca579230f7652590bc19fa00a35701857ef",
+            "translation": [
+                3.6238238,
+                0.0,
+                -0.0431798
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2472534,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "bdab4ca579230f7652590bc19fa00a35701857ef",
+            "translation": [
+                2.8120148,
+                -1.1920928955078126e-7,
+                1.8262199
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bdab4ca579230f7652590bc19fa00a35701857ef",
+            "translation": [
+                0.2078848,
+                -1.1920928955078126e-7,
+                1.8262199
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bdab4ca579230f7652590bc19fa00a35701857ef",
+            "translation": [
+                -2.3271501,
+                0.0,
+                -0.1312748
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bdab4ca579230f7652590bc19fa00a35701857ef",
+            "translation": [
+                -2.3271501,
+                8.940696716308594e-8,
+                -1.4334846
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bdab4ca579230f7652590bc19fa00a35701857ef",
+            "translation": [
+                -18.4807186,
+                2.980232238769531e-7,
+                -5.1900796
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2816611,
+                0.9999998,
+                0.9314163
+            ]
+        },
+        {
+            "template_name": "6acafe4f37b17ff0c33d22c8dc3fede1bddc67de",
+            "translation": [
+                1.50995,
+                -1.1920928955078126e-7,
+                1.8262199
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c56b1556e1583e9043c632895cf43d602f3a9469",
+            "translation": [
+                -19.0912952,
+                7.748603820800781e-7,
+                -13.4834194
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c56b1556e1583e9043c632895cf43d602f3a9469",
+            "translation": [
+                -19.1104354,
+                6.556510925292969e-7,
+                -10.8428096
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "7e9ae82058f7719b0e8b0e83a055ed7341afe69d",
+            "translation": [
+                6.58255,
+                2.384185791015625e-7,
+                -3.9095897
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "7e9ae82058f7719b0e8b0e83a055ed7341afe69d",
+            "translation": [
+                4.3029298,
+                2.384185791015625e-7,
+                -3.9095897
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c34d55162d1b20d077c536fbafd0a1430680222a",
+            "translation": [
+                5.7598295,
+                4.76837158203125e-7,
+                -7.9163494
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "3d71cae6d28e2b2358f25de31ac1b03977654acc",
+            "translation": [
+                -18.9488258,
+                -1.1920928955078126e-7,
+                1.9537799
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "3d71cae6d28e2b2358f25de31ac1b03977654acc",
+            "translation": [
+                -18.9488258,
+                -2.980232238769531e-7,
+                5.0042395
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "1e0ef5832d4a8d7cee832ba2bb7a7ba04ae764f2",
+            "translation": [
+                7.1387605,
+                0.6350002,
+                -4.4383296
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "1e0ef5832d4a8d7cee832ba2bb7a7ba04ae764f2",
+            "translation": [
+                4.5828704,
+                0.6350002,
+                -4.3992495
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "897e7615d4488fca5aeb35c34e037b6615388b44",
+            "translation": [
+                -13.8700399,
+                3.5762786865234377e-7,
+                -5.6352796
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9999998,
+                1.2704726,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "897e7615d4488fca5aeb35c34e037b6615388b44",
+            "translation": [
+                -13.8700399,
+                1.1920928955078126e-7,
+                -2.8809194
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9999998,
+                1.2704726,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "xxxx85e326a7x648ex4042x83f7x447577f1754a",
+            "translation": [
+                -18.4786491,
+                0.0,
+                0.9930399
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                1.1753299,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "xxxx85e326a7x648ex4042x83f7x447577f1754a",
+            "translation": [
+                -17.0816497,
+                0.0,
+                0.9930399
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                1.1753299,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "649be1e411a498bc8169918c661cb52da347051f",
+            "translation": [
+                -5.74374,
+                1.7498996,
+                2.9546999
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "1783a121bcc1e1649b1483af2477b86752d5b4f5",
+            "translation": [
+                10.986,
+                0.6399995,
+                4.8908495
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "1783a121bcc1e1649b1483af2477b86752d5b4f5",
+            "translation": [
+                10.9343099,
+                0.6399997,
+                2.3234701
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "d509c926d21460ac52201489ce3f5cd327d4cfc1",
+            "translation": [
+                -16.7541694,
+                -1.7881393432617188e-7,
+                3.0042598
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "d509c926d21460ac52201489ce3f5cd327d4cfc1",
+            "translation": [
+                -16.7541694,
+                -2.2351741790771485e-7,
+                3.8505496
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "afe773ff0423115a55e49defb4c62bf5e20cf172",
+            "translation": [
+                -7.3016247,
+                1.7499902,
+                -4.8800196
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "afe773ff0423115a55e49defb4c62bf5e20cf172",
+            "translation": [
+                -9.6528148,
+                1.7499902,
+                -4.8486995
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "2ba78a798010191fd7b9d8e395c76a9e55d427ac",
+            "translation": [
+                -10.5681896,
+                -1.1920928955078126e-7,
+                1.1195398
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "3a6980d5ae9dc09a6faa54600a985781402eb7e1",
+            "translation": [
+                9.1138706,
+                1.7506995,
+                5.56956
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "11f6ff3dbfc997ba5c70d59905246f7fa5b5c7fb",
+            "translation": [
+                -19.1771545,
+                2.0272998,
+                3.4823796
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "465c339f405bf0f55e0c316820958dee1126dabd",
+            "translation": [
+                0.64862,
+                -1.4901161193847657e-7,
+                2.5747594
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.1243362,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "465c339f405bf0f55e0c316820958dee1126dabd",
+            "translation": [
+                2.3493499,
+                -1.4901161193847657e-7,
+                2.5747594
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.1534183,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "465c339f405bf0f55e0c316820958dee1126dabd",
+            "translation": [
+                -3.9020502,
+                5.960464477539063e-8,
+                -1.05411
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                -0.3614999,
+                4.76837158203125e-7,
+                -7.8524198
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                -2.47227,
+                4.76837158203125e-7,
+                -7.8524198
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                -2.9544799,
+                4.76837158203125e-7,
+                -7.8524198
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                -0.84371,
+                4.76837158203125e-7,
+                -7.8524198
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                2.25741,
+                4.76837158203125e-7,
+                -7.7552499
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.5870797,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                2.25741,
+                3.5762786865234377e-7,
+                -6.0162696
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.5870797,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                5.2107906,
+                9.5367431640625e-7,
+                -15.5809497
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                4.70298,
+                9.5367431640625e-7,
+                -15.5809497
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                4.20298,
+                9.5367431640625e-7,
+                -15.5809497
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                3.7034299,
+                9.5367431640625e-7,
+                -15.5809497
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                5.7107906,
+                9.5367431640625e-7,
+                -15.5809497
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                -22.5843601,
+                9.5367431640625e-7,
+                -15.6022977
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                -22.0843601,
+                9.5367431640625e-7,
+                -15.6022977
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                -21.5843601,
+                9.5367431640625e-7,
+                -15.6022977
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                -21.0843601,
+                9.5367431640625e-7,
+                -15.6022977
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "722d9b8b0d8ad98e8798840b918121d2c126fa26",
+            "translation": [
+                -20.5843601,
+                9.5367431640625e-7,
+                -15.6022977
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                1.1544997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "ed4fbbb8cc877cea34ff946b05c9da8b3690ee74",
+            "translation": [
+                -2.0271501,
+                2.3220698,
+                -1.5242997
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "ed4fbbb8cc877cea34ff946b05c9da8b3690ee74",
+            "translation": [
+                -2.0271501,
+                1.75,
+                -1.5242997
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "ed4fbbb8cc877cea34ff946b05c9da8b3690ee74",
+            "translation": [
+                -2.0271501,
+                1.1028698,
+                -1.5242997
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "d81be9234c949d130bf62a437c75a5ad3b92151d",
+            "translation": [
+                6.3361597,
+                5.960464477539063e-7,
+                -10.404088
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "d81be9234c949d130bf62a437c75a5ad3b92151d",
+            "translation": [
+                -0.8923,
+                1.1920928955078126e-7,
+                -1.6590297
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "d81be9234c949d130bf62a437c75a5ad3b92151d",
+            "translation": [
+                7.9079103,
+                0.0,
+                -0.1178098
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0000001,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "d81be9234c949d130bf62a437c75a5ad3b92151d",
+            "translation": [
+                5.3453102,
+                -1.1920928955078126e-7,
+                2.9930796
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "d81be9234c949d130bf62a437c75a5ad3b92151d",
+            "translation": [
+                -17.0782299,
+                2.384185791015625e-7,
+                -3.13085
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "d81be9234c949d130bf62a437c75a5ad3b92151d",
+            "translation": [
+                -14.4153394,
+                2.384185791015625e-7,
+                -3.13085
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "793b53d25a8b26dbe12430fe86e07f8cdeb3bb2f",
+            "translation": [
+                -15.6993904,
+                3.2782554626464846e-7,
+                -5.5226297
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "dd04a3a817e2bf67a6b037d2a079b5d80afb0258",
+            "translation": [
+                1.55759,
+                5.960464477539063e-8,
+                -0.6518348
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.1278295,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "dd04a3a817e2bf67a6b037d2a079b5d80afb0258",
+            "translation": [
+                10.9462652,
+                -5.960464477539063e-8,
+                0.5756298
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0368676,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "dd04a3a817e2bf67a6b037d2a079b5d80afb0258",
+            "translation": [
+                8.9663553,
+                -5.960464477539063e-8,
+                0.5690898
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0368676,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "dd04a3a817e2bf67a6b037d2a079b5d80afb0258",
+            "translation": [
+                9.92982,
+                0.0,
+                -0.1910648
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9685264,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "4b3c032200f1d05ef71aa2fe324180d8b772f1a2",
+            "translation": [
+                0.421705,
+                5.960464477539063e-8,
+                -1.0876097
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "a371e0f1b268f791c3fd4c27e07bae8a4b59cf9e",
+            "translation": [
+                -16.7756195,
+                1.7499997,
+                -1.6771596
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "e9aa737db39d132275f3e6bb4453fd3ffc9ab1bc",
+            "translation": [
+                -18.3650207,
+                1.7881393432617188e-7,
+                -2.6618297
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bf87bea088e8fa4b89eabcaa6b925094cfe910ab",
+            "translation": [
+                2.4299399,
+                2.7999997,
+                2.2970499
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bf87bea088e8fa4b89eabcaa6b925094cfe910ab",
+            "translation": [
+                0.5897799,
+                2.7999997,
+                2.2970499
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bf87bea088e8fa4b89eabcaa6b925094cfe910ab",
+            "translation": [
+                -3.8958899,
+                2.7999997,
+                -1.0296998
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "98438d0f228f941ef41aa69c551c54a93aa74ee1",
+            "translation": [
+                -8.5576496,
+                -5.960464477539063e-8,
+                1.1141399
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "3a2f0856e56373e215107682721c8c03e90a095f",
+            "translation": [
+                -13.8700399,
+                2.682209014892578e-7,
+                -4.2594938
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.1590467,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "b1b3d0674a74eacaddf0beea66e5679eba96e9d3",
+            "translation": [
+                -11.896429,
+                2.980232238769531e-7,
+                -4.9691295
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "e3e90be72788cf5f13a14d46f0f5fea24b27b8f1",
+            "translation": [
+                4.9699449,
+                2.1209497,
+                2.24691
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9999998,
+                0.9999998,
+                1.479269
+            ]
+        },
+        {
+            "template_name": "5866f3f1fc28a785334cea9f6ceae1373b886203",
+            "translation": [
+                2.1565999,
+                0.0,
+                -0.0149298
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                1.2499997,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "e4793fe70f9ace06ff63cddf8091872c1bd68328",
+            "translation": [
+                5.8608198,
+                2.980232238769531e-7,
+                -5.3716249
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "fb757ae376be045ec538f416544191b47e05bbb8",
+            "translation": [
+                -14.5068349,
+                -1.1920928955078126e-7,
+                2.2319097
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "fb757ae376be045ec538f416544191b47e05bbb8",
+            "translation": [
+                -14.5068349,
+                -2.980232238769531e-7,
+                4.5179095
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "4dd2cff8a6df51298907bb136f1ffaf59baca029",
+            "translation": [
+                -0.7924748,
+                -5.364418029785156e-7,
+                8.9281187
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "4dd2cff8a6df51298907bb136f1ffaf59baca029",
+            "translation": [
+                -0.781435,
+                -4.470348358154297e-7,
+                7.5081496
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "266d651c9d95fdd5a91ccc57d2307db389adc4d7",
+            "translation": [
+                0.39076,
+                1.75,
+                -4.1352195
+            ],
+            "rotation": [
+                0.7071068,
+                0.7071067,
+                0.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "266d651c9d95fdd5a91ccc57d2307db389adc4d7",
+            "translation": [
+                9.4686899,
+                1.7500003,
+                -10.5262584
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "266d651c9d95fdd5a91ccc57d2307db389adc4d7",
+            "translation": [
+                6.6300296,
+                1.7499996,
+                1.4879001
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "266d651c9d95fdd5a91ccc57d2307db389adc4d7",
+            "translation": [
+                6.95825,
+                1.7499995,
+                3.5209798
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "266d651c9d95fdd5a91ccc57d2307db389adc4d7",
+            "translation": [
+                -14.18997,
+                1.7500001,
+                -5.3758196
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "26dcf95ab84ca558a39163e8d4843edd19a7e47c",
+            "translation": [
+                6.1107897,
+                1.7500003,
+                -8.9744186
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "26dcf95ab84ca558a39163e8d4843edd19a7e47c",
+            "translation": [
+                8.6576995,
+                1.7499996,
+                0.87325
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "26dcf95ab84ca558a39163e8d4843edd19a7e47c",
+            "translation": [
+                -14.18997,
+                1.75,
+                -4.5558295
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bc59d29d1dd89583b138da32dd3a25916c4dd684",
+            "translation": [
+                -5.8937401,
+                1.7499996,
+                3.1934196
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bc59d29d1dd89583b138da32dd3a25916c4dd684",
+            "translation": [
+                -3.2044796,
+                1.7500002,
+                -7.2149996
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bc59d29d1dd89583b138da32dd3a25916c4dd684",
+            "translation": [
+                -14.2784996,
+                1.8446797,
+                4.4482297
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "xxxx322c56cbxdab6x4103x9cc6xb3682582bf0f",
+            "translation": [
+                7.1082448,
+                1.7499996,
+                2.98105
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "xxxxae2f01e3xe2c3x411dx9794xfab01d30c3f8",
+            "translation": [
+                2.707005,
+                1.75,
+                -2.3951597
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "080af6e022a943b0d3e3aeef330776da6136f17b",
+            "translation": [
+                4.9699401,
+                2.1209497,
+                3.4337899
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.7932597,
+                0.9999998,
+                1.5918662
+            ]
+        },
+        {
+            "template_name": "080af6e022a943b0d3e3aeef330776da6136f17b",
+            "translation": [
+                4.9699401,
+                2.1209497,
+                3.02131
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9264999,
+                0.9999998,
+                1.5918662
+            ]
+        },
+        {
+            "template_name": "080af6e022a943b0d3e3aeef330776da6136f17b",
+            "translation": [
+                4.9699401,
+                2.1209497,
+                1.4652497
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.7932597,
+                0.9999998,
+                1.5918662
+            ]
+        },
+        {
+            "template_name": "080af6e022a943b0d3e3aeef330776da6136f17b",
+            "translation": [
+                4.9699401,
+                2.1209497,
+                1.0239901
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9999998,
+                0.9999998,
+                1.5918662
+            ]
+        },
+        {
+            "template_name": "080af6e022a943b0d3e3aeef330776da6136f17b",
+            "translation": [
+                4.9699401,
+                2.1209497,
+                0.5439401
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                1.5918662
+            ]
+        },
+        {
+            "template_name": "080af6e022a943b0d3e3aeef330776da6136f17b",
+            "translation": [
+                4.0137901,
+                2.1209499,
+                -0.3431797
+            ],
+            "rotation": [
+                0.7071068,
+                0.7071067,
+                0.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2257,
+                0.9999998,
+                1.5918662
+            ]
+        },
+        {
+            "template_name": "080af6e022a943b0d3e3aeef330776da6136f17b",
+            "translation": [
+                3.4109799,
+                2.1209499,
+                -0.3431797
+            ],
+            "rotation": [
+                0.7071068,
+                0.7071067,
+                0.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.17208,
+                0.9999998,
+                1.5918662
+            ]
+        },
+        {
+            "template_name": "8c5266145942e091cb28561b65a02042e309c31f",
+            "translation": [
+                4.6469049,
+                2.1209499,
+                -0.3431797
+            ],
+            "rotation": [
+                0.7071068,
+                0.7071067,
+                0.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                0.9999998,
+                1.5916116
+            ]
+        },
+        {
+            "template_name": "039d68376f58a555b1fff5b989409652dd5d5ae7",
+            "translation": [
+                1.43549,
+                -4.5727938413619997e-7,
+                7.6728191
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                2.0166745,
+                0.9999998,
+                1.9331797
+            ]
+        },
+        {
+            "template_name": "039d68376f58a555b1fff5b989409652dd5d5ae7",
+            "translation": [
+                -5.2312498,
+                3.5157427191734316e-7,
+                -5.89819
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.4502198,
+                0.9999998,
+                1.2514598
+            ]
+        },
+        {
+            "template_name": "09b1df19e95ab47e50c8aac06137ef2f51144d34",
+            "translation": [
+                7.9215254,
+                1.7496,
+                -6.5557494
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "09b1df19e95ab47e50c8aac06137ef2f51144d34",
+            "translation": [
+                7.9215254,
+                1.7496,
+                -6.0586295
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "09b1df19e95ab47e50c8aac06137ef2f51144d34",
+            "translation": [
+                7.9215254,
+                1.7496,
+                -6.2989201
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "424d7e7d258370736e6cfdbad2b253e521f80c79",
+            "translation": [
+                4.6699399,
+                -8.940696716308594e-8,
+                1.4528099
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "587dcfcb2666a3355ab30cd91929f1a3bd2ed272",
+            "translation": [
+                -2.3271501,
+                5.960464477539063e-8,
+                -0.7823398
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "9decf8fa3f788bd605928cc91128d11eabd5674d",
+            "translation": [
+                -1.5399099,
+                9.5367431640625e-7,
+                -15.830388
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "204b5e24e7582e2efc246669f41d58d487f167fb",
+            "translation": [
+                -0.8688098,
+                1.9980958,
+                -5.6195044
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.279945,
+                0.9999998,
+                1.6118631
+            ]
+        },
+        {
+            "template_name": "204b5e24e7582e2efc246669f41d58d487f167fb",
+            "translation": [
+                -2.4066801,
+                1.9980958,
+                -5.6195044
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.3483784,
+                0.9999998,
+                1.6118631
+            ]
+        },
+        {
+            "template_name": "de42fc775fe641e492de90b98e5ca87861d4ca61",
+            "translation": [
+                -18.9798412,
+                0.6476997,
+                5.0181293
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "de42fc775fe641e492de90b98e5ca87861d4ca61",
+            "translation": [
+                -19.0109596,
+                0.6476997,
+                1.9162697
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "065ec382b612213e49941b205a074141469eba31",
+            "translation": [
+                4.5914301,
+                4.76837158203125e-7,
+                -7.9163494
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "f08c543e483e80ca970c47b69511452310eeea69",
+            "translation": [
+                -16.7253646,
+                -4.76837158203125e-7,
+                7.9072389
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c33bcb32a24d134063746c86fda67a948c9321de",
+            "translation": [
+                5.4221706,
+                1.1920928955078126e-7,
+                -1.6107797
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "dd8223f1a7ea2da666681328b6febd74cddcce76",
+            "translation": [
+                -2.0271499,
+                1.7500001,
+                -3.2682297
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "dd28ed0244e64fe27f9bd694de69af22b15b93aa",
+            "translation": [
+                3.7839798,
+                -6.258487701416016e-7,
+                10.3949489
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.6993737,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "dd28ed0244e64fe27f9bd694de69af22b15b93aa",
+            "translation": [
+                -1.00905,
+                -6.258487701416016e-7,
+                10.3949489
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.6993737,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "2e29310bdf8a7d8b3f0e90e0d7aa18c929a5006b",
+            "translation": [
+                -20.3219203,
+                2.384185791015625e-7,
+                -4.5007295
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2109621,
+                0.9999998,
+                1.180037
+            ]
+        },
+        {
+            "template_name": "c26b16c8dfdba6600221a57542782292c15e983b",
+            "translation": [
+                9.0150203,
+                5.960464477539063e-7,
+                -9.1021289
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c26b16c8dfdba6600221a57542782292c15e983b",
+            "translation": [
+                -1.0770399,
+                2.384185791015625e-7,
+                -3.68155
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c26b16c8dfdba6600221a57542782292c15e983b",
+            "translation": [
+                5.5736098,
+                0.0,
+                0.5760998
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.139593,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "b6bc2fe5ca3bfb2a389e771f6cca1dbba6a17c8d",
+            "translation": [
+                -5.1938199,
+                2.8000001,
+                -5.9156394
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "cc17054d09c889e72d32457505e032dedf054b71",
+            "translation": [
+                6.0354399,
+                1.7499996,
+                1.6378997
+            ],
+            "rotation": [
+                0.7071068,
+                0.7071067,
+                0.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "cc17054d09c889e72d32457505e032dedf054b71",
+            "translation": [
+                -18.3145294,
+                1.7499997,
+                -2.3810596
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "667a58a96b908e9b79a8db793352400d672970f2",
+            "translation": [
+                -1.87715,
+                1.7499997,
+                -2.5454497
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "667a58a96b908e9b79a8db793352400d672970f2",
+            "translation": [
+                6.95825,
+                1.7499996,
+                2.37505
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "18d33c5c5df8b177bab1b8d8673ff67e58de0bb8",
+            "translation": [
+                -5.8937401,
+                1.7499996,
+                2.06707
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "18d33c5c5df8b177bab1b8d8673ff67e58de0bb8",
+            "translation": [
+                -3.2044796,
+                1.7500001,
+                -6.6178598
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "18d33c5c5df8b177bab1b8d8673ff67e58de0bb8",
+            "translation": [
+                0.0384998,
+                1.7500002,
+                -7.7559895
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "18d33c5c5df8b177bab1b8d8673ff67e58de0bb8",
+            "translation": [
+                -14.2784996,
+                1.8446798,
+                2.2515799
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "8083346ccbdd2b001e8e6e1c6e5c2a37e4774792",
+            "translation": [
+                1.4055099,
+                0.6096,
+                -1.8813599
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                0.9293953,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "8083346ccbdd2b001e8e6e1c6e5c2a37e4774792",
+            "translation": [
+                7.8721098,
+                0.6096007,
+                -11.1385393
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                0.9293953,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "00b285ed70673826ccb6941929a64abfaf5f9239",
+            "translation": [
+                -2.6039199,
+                3.5762786865234377e-7,
+                -5.9019994
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "00b285ed70673826ccb6941929a64abfaf5f9239",
+            "translation": [
+                -1.7028598,
+                3.5762786865234377e-7,
+                -5.9019994
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "1fed03ca5b84ba5de9d2be405050acec4cfeaf10",
+            "translation": [
+                -11.9524497,
+                0.7500602,
+                -4.2691893
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "1fed03ca5b84ba5de9d2be405050acec4cfeaf10",
+            "translation": [
+                2.97196,
+                0.7700003,
+                -6.8454294
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "4a8137033dba849dc8e9ed7849ad420550f20c28",
+            "translation": [
+                -16.9361305,
+                3.5762786865234377e-7,
+                -5.7532496
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "7244821159fbec44fa2e85a27ccc2e4b8294e1cc",
+            "translation": [
+                3.7957999,
+                -5.662441253662109e-7,
+                9.3003492
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "7244821159fbec44fa2e85a27ccc2e4b8294e1cc",
+            "translation": [
+                -1.0503798,
+                -4.76837158203125e-7,
+                8.205039
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "a2135a6cf11a93b6b74d5607a2aff7bd0244f866",
+            "translation": [
+                3.0568702,
+                4.172325134277344e-7,
+                -6.8113093
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "f53678c774829a81bbc52b1c82537aa953b3c2bd",
+            "translation": [
+                -15.7304229,
+                1.5624115,
+                -6.1351399
+            ],
+            "rotation": [
+                0.7071068,
+                0.7071067,
+                0.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                2.0397717,
+                0.9999998,
+                1.0379204
+            ]
+        },
+        {
+            "template_name": "f53678c774829a81bbc52b1c82537aa953b3c2bd",
+            "translation": [
+                -12.6287765,
+                1.5624109,
+                3.6519896
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.5205527,
+                0.9999998,
+                1.0379204
+            ]
+        },
+        {
+            "template_name": "f53678c774829a81bbc52b1c82537aa953b3c2bd",
+            "translation": [
+                -4.0230207,
+                1.5275994,
+                5.5797595
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.9314161,
+                0.9999998,
+                0.9999997
+            ]
+        },
+        {
+            "template_name": "f53678c774829a81bbc52b1c82537aa953b3c2bd",
+            "translation": [
+                -5.7437405,
+                1.5275995,
+                4.7066798
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "f53678c774829a81bbc52b1c82537aa953b3c2bd",
+            "translation": [
+                -6.8126802,
+                1.5275995,
+                3.6519896
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "f53678c774829a81bbc52b1c82537aa953b3c2bd",
+            "translation": [
+                -10.0786705,
+                1.5275995,
+                3.6519896
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "e85b54d8ecc9bd3db676672374632b6f2038d7fa",
+            "translation": [
+                5.4172196,
+                1.7500001,
+                -4.1352195
+            ],
+            "rotation": [
+                0.7071068,
+                0.7071067,
+                0.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "323e91a7be4f48ea6f7f451d5f1d22edb030930c",
+            "translation": [
+                -14.8696203,
+                9.5367431640625e-7,
+                -15.6971178
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                2.8688001,
+                0.0,
+                -0.0435549
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                -0.1299999,
+                0.0,
+                -0.984035
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                -0.6299998,
+                0.0,
+                -0.984035
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                -1.1299998,
+                0.0,
+                -0.984035
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                -1.62715,
+                0.0,
+                -0.984035
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                4.6703147,
+                -2.384185791015625e-7,
+                3.8678498
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9999998,
+                1.2122781,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                0.5199999,
+                0.0,
+                -0.0435549
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                1.2122781,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                -2.326775,
+                1.1920928955078126e-7,
+                -2.0834498
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                1.2122781,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                -17.7035999,
+                3.5762786865234377e-7,
+                -5.1698746
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.0,
+                1.1545051,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "77af27c6a414131f13d2aac55153720028fd4ed5",
+            "translation": [
+                -19.243349,
+                3.5762786865234377e-7,
+                -5.1698746
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                1.1545051,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "be76e60c5b196c712dc958ae97874f28f4817fff",
+            "translation": [
+                -1.6684298,
+                1.7500003,
+                -8.1520185
+            ],
+            "rotation": [
+                0.7071068,
+                0.7071067,
+                0.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.4432947,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "c61e8e4d12958dd3489d22fa51c47f14622034e2",
+            "translation": [
+                1.39163,
+                -6.109476089477539e-7,
+                10.3394098
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.391412,
+                1.0,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "08f59d018f87b3d2222ba3135f92f3f6531c9c8c",
+            "translation": [
+                8.7948503,
+                4.172325134277344e-7,
+                -6.5495743
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.1249349,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "08f59d018f87b3d2222ba3135f92f3f6531c9c8c",
+            "translation": [
+                9.3100452,
+                4.172325134277344e-7,
+                -7.4291896
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2125779,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "1a40321a6bd298e40f2ebc60cdc9d8073e449771",
+            "translation": [
+                6.7695097,
+                0.2538999,
+                -0.82273
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "1a40321a6bd298e40f2ebc60cdc9d8073e449771",
+            "translation": [
+                4.0862398,
+                0.2538999,
+                -0.8755999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "ed4bdf24c292c903230dc0f1ec45b630783037fd",
+            "translation": [
+                2.2786998,
+                -4.470348358154297e-7,
+                7.5908894
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                1.0,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "89ba3ca85be9fdeec04468df9a4f75c17d91b01b",
+            "translation": [
+                -14.5068349,
+                -2.086162567138672e-7,
+                3.3749096
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "0bf5571d6131631d24e713440f36916cc7dce230",
+            "translation": [
+                -14.0399694,
+                1.7500001,
+                -4.2527594
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "aca5d18c00c3b4f402d46ca23421545514e606da",
+            "translation": [
+                -2.5784101,
+                9.5367431640625e-7,
+                -15.9210891
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "cb53d7dc4a7ac71cd26c4ac7938d9e990bf404a0",
+            "translation": [
+                -1.6891299,
+                0.0,
+                0.1419398
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "cb53d7dc4a7ac71cd26c4ac7938d9e990bf404a0",
+            "translation": [
+                -1.3130898,
+                0.0,
+                0.1419398
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c294ee4dd27985e94399a647c6431420ad3749d9",
+            "translation": [
+                4.61205,
+                -1.1920928955078126e-7,
+                2.2102897
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "9fbbbfc58e5cafbc27a31069808cf168cf2d7a78",
+            "translation": [
+                2.22876,
+                3.5762786865234377e-7,
+                -6.8752393
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                0.9999998,
+                1.1904292,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "29eae95684fa474fdd82b2619c59a7bd66c036fe",
+            "translation": [
+                -3.9179799,
+                2.7999994,
+                3.7870497
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "f5d30765219e9a8ac3a49fcabd6fdd56980893e4",
+            "translation": [
+                7.3496599,
+                -1.4901161193847657e-7,
+                2.5530598
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "f5d30765219e9a8ac3a49fcabd6fdd56980893e4",
+            "translation": [
+                7.3496599,
+                -2.086162567138672e-7,
+                3.3333497
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "35be49f0cae16e4ed76d7aa0ee7f30f2a91ac795",
+            "translation": [
+                -8.53306,
+                2.9802322387695315e-8,
+                -0.44955
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "35be49f0cae16e4ed76d7aa0ee7f30f2a91ac795",
+            "translation": [
+                -8.5406398,
+                -1.4901161193847657e-7,
+                2.5138998
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c20a0e84afd93a3008f0df44bb00a7fc65913557",
+            "translation": [
+                10.8763141,
+                -2.980232238769531e-7,
+                4.8751597
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "c20a0e84afd93a3008f0df44bb00a7fc65913557",
+            "translation": [
+                10.8763141,
+                -1.4901161193847657e-7,
+                2.3037598
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "498ad9602ffa2854cc2e31a54988dbecc0e9d2a9",
+            "translation": [
+                -5.8937401,
+                1.7499996,
+                2.6376199
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "498ad9602ffa2854cc2e31a54988dbecc0e9d2a9",
+            "translation": [
+                0.0384998,
+                1.7500001,
+                -6.0104293
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "3459ff07fbf6366f77c2fb2fdcffc159822b862e",
+            "translation": [
+                -10.8908901,
+                0.0009998,
+                2.5818998
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2278776,
+                1.2695055,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "3459ff07fbf6366f77c2fb2fdcffc159822b862e",
+            "translation": [
+                -10.8908901,
+                0.0,
+                -0.3994798
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                1.2278776,
+                1.2695055,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "bd8a1dc70062c8e7c8a33cb92ee86fbe6b015547",
+            "translation": [
+                -14.70545,
+                -5.960464477539063e-8,
+                1.2571097
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "bd8a1dc70062c8e7c8a33cb92ee86fbe6b015547",
+            "translation": [
+                -10.4552192,
+                -1.7881393432617188e-7,
+                3.1045298
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "xxxxa423deacx006ex4c0cxa9a0xb565b122a798",
+            "translation": [
+                4.8937997,
+                1.7499997,
+                -0.4931797
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "xxxxf4e21153xd6ddx46f0x9c09x7bf182715112",
+            "translation": [
+                -12.3067798,
+                1.6784899,
+                -2.3810546
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "xxxxde46a28cx3fcax477dx82b9x227719c98ba6",
+            "translation": [
+                -7.1516299,
+                1.75,
+                -5.1801891
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "xxxxde46a28cx3fcax477dx82b9x227719c98ba6",
+            "translation": [
+                -7.1516299,
+                1.7499997,
+                -4.4578495
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "xxxxde46a28cx3fcax477dx82b9x227719c98ba6",
+            "translation": [
+                -7.1516299,
+                1.75,
+                -5.9053397
+            ],
+            "rotation": [
+                0.4999999,
+                0.4999999,
+                0.5,
+                -0.5
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "xxxx56485f52x704fx4fdax84d0xf19fce540362",
+            "translation": [
+                5.9549894,
+                1.7499997,
+                -0.4931798
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.7071068,
+                -0.7071067
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "50d08862a40bcb64a53333660c11bfadee3e2284",
+            "translation": [
+                -2.0271899,
+                1.7499997,
+                -0.7112947
+            ],
+            "rotation": [
+                -0.5,
+                -0.5,
+                0.5,
+                -0.4999999
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "220-4",
+            "translation": [
+                -0.9664598,
+                1.4499993,
+                10.6684093
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "220-4",
+            "translation": [
+                3.7801902,
+                1.4499993,
+                10.6684093
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                5.0953798,
+                1.4499994,
+                9.2043104
+            ],
+            "rotation": [
+                0.7071067,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                5.0953798,
+                1.4499994,
+                7.2999291
+            ],
+            "rotation": [
+                0.7071067,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "220-4",
+            "translation": [
+                -5.2353901,
+                1.4500004,
+                -8.2270193
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "212-4",
+            "translation": [
+                -1.0937099,
+                1.0900006,
+                -12.068449
+            ],
+            "rotation": [
+                0.7071067,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "220-4",
+            "translation": [
+                1.9663398,
+                1.4500007,
+                -15.3972892
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "4076-2",
+            "translation": [
+                -4.41154,
+                1.1200009,
+                -16.1352787
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "220-4",
+            "translation": [
+                -18.8018398,
+                1.4500007,
+                -15.3972892
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "4076-2",
+            "translation": [
+                -12.4946203,
+                1.1200009,
+                -16.146368
+            ],
+            "rotation": [
+                0.7071067,
+                0.0,
+                0.7071068,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                -7.2266302,
+                1.4500004,
+                -7.2393093
+            ],
+            "rotation": [
+                0.7071067,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "4076-2",
+            "translation": [
+                -14.2034997,
+                1.1199995,
+                6.5518994
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "220-17",
+            "translation": [
+                -14.9149618,
+                1.4499994,
+                8.0215883
+            ],
+            "rotation": [
+                -0.3938521,
+                0.0,
+                0.9191737,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "220-17",
+            "translation": [
+                -16.7087802,
+                1.4499994,
+                8.7588195
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "220-17",
+            "translation": [
+                -18.5143775,
+                1.4499994,
+                8.0286493
+            ],
+            "rotation": [
+                0.3876641,
+                0.0,
+                0.9218006,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                -19.2521495,
+                1.4499994,
+                6.5828094
+            ],
+            "rotation": [
+                0.7071067,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "211-7",
+            "translation": [
+                -8.4482107,
+                1.1199996,
+                3.7219896
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                -6.83042,
+                1.4499995,
+                3.7269897
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                -10.0479602,
+                1.4499995,
+                3.7269897
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-9",
+            "translation": [
+                -12.6221399,
+                1.4499995,
+                3.7269897
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "4380-0",
+            "translation": [
+                -8.5040502,
+                1.1200002,
+                -6.2101397
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "218-38",
+            "translation": [
+                -18.4908504,
+                1.4500001,
+                -5.5444998
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "220-4",
+            "translation": [
+                -11.9250907,
+                1.4500001,
+                -6.2101397
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "220-4",
+            "translation": [
+                -15.7067699,
+                1.4500001,
+                -6.2101397
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                -2.33043,
+                1.4499994,
+                7.1614394
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                -2.33043,
+                1.4499994,
+                9.2667102
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                -5.8187394,
+                1.4499995,
+                4.7294998
+            ],
+            "rotation": [
+                0.7071067,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "220-4",
+            "translation": [
+                -4.05867,
+                1.4499994,
+                5.6547598
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -1.0,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "4076-2",
+            "translation": [
+                6.34938,
+                1.1199996,
+                5.6547598
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                1.0,
+                0.0
+            ],
+            "motion_type": "static"
+        },
+        {
+            "template_name": "220-4",
+            "translation": [
+                8.0492696,
+                1.45,
+                -2.3331198
+            ],
+            "rotation": [
+                0.7071067,
+                0.0,
+                0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "219-4",
+            "translation": [
+                8.0492696,
+                1.4500001,
+                -5.2355694
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "212-4",
+            "translation": [
+                -15.8011398,
+                1.0900006,
+                -12.0614891
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                -0.7071067,
+                0.0
+            ],
+            "motion_type": "static",
+            "non_uniform_scale": [
+                -0.9999998,
+                0.9999998,
+                0.9999998
+            ]
+        },
+        {
+            "template_name": "200-3",
+            "translation": [
+                -16.6849193,
+                1.1200003,
+                -8.2270193
+            ],
+            "motion_type": "static"
+        }
+    ],
+    "articulated_object_instances": [],
+    "stage_instance": {
+        "template_name": "stages/102816009",
+        "motion_type": "static"
+    },
+    "user_defined": {
+        "scene_filter_file": "scene_filter_files/102816009.rec_filter.json"
+    }
+}

@@ -1,0 +1,108 @@
+---
+    dataset_path: "data/hab3_bench_assets/hab3-hssd/hab3-hssd.scene_dataset_config.json"
+    additional_object_paths:
+    - data/objects/ycb/configs/
+    scene_sets:
+      - name: "small"
+        included_substrings:
+          - "103997919_171031233"
+        excluded_substrings:
+          - "NONE"
+          - "orig"
+      - name: "medium"
+        included_substrings:
+          - "108736635_177263256"
+        excluded_substrings:
+          - "NONE"
+          - "orig"
+      - name: "large"
+        included_substrings:
+          - "102816009"
+        excluded_substrings:
+          - "NONE"
+          - "orig"
+
+    object_sets:
+      - name: "ycb_hab2"
+        included_substrings:
+          - "002_master_chef_can"
+          - "003_cracker_box"
+          - "004_sugar_box"
+          - "005_tomato_soup_can"
+          - "007_tuna_fish_can"
+          - "008_pudding_box"
+          - "009_gelatin_box"
+          - "010_potted_meat_can"
+          - "024_bowl"
+        excluded_substrings: []
+    receptacle_sets:
+      - name: "all"
+        included_object_substrings:
+          - ""
+        excluded_object_substrings: []
+        included_receptacle_substrings:
+          - ""
+        excluded_receptacle_substrings: []
+
+    scene_sampler:
+      type: subset
+      params:
+        scene_sets:
+        #- small
+        #- medium
+        - large
+
+    object_samplers:
+    - name: any
+      type: uniform
+      params:
+        object_sets:
+        - ycb_hab2
+        receptacle_sets:
+        - all
+        #choose number of objects
+        num_samples:
+        #small obj
+        #- 2
+        #- 2
+        #med obj
+        #- 5
+        #- 5
+        #large obj
+        - 10
+        - 10
+        orientation_sampling: up
+        nav_to_min_distance: 1.5
+        constrain_to_largest_nav_island: True
+
+    object_target_samplers:
+    - name: any_targets
+      type: uniform
+      params:
+        object_samplers:
+        - any
+        receptacle_sets:
+        - all
+        num_samples:
+        - 2
+        - 2
+        orientation_sampling: up
+        nav_to_min_distance: 1.5
+        constrain_to_largest_nav_island: True
+
+    correct_unstable_results: True
+
+    regenerate_new_mesh: True
+    agent_radius: 0.25
+    agent_height: 1.41
+    agent_max_climb: 0.01
+
+    check_navigable: True
+    navmesh_offset: [[0, 0], [0, 0.15], [0, -0.15]]
+    max_collision_rate_for_navigable: 0.3
+    angle_threshold: 0.05
+    angular_velocity: 1.0
+    distance_threshold: 0.25
+    linear_velocity: 1.0
+
+    gpu_device_id: 0
