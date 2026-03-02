@@ -1,33 +1,43 @@
 import habitat_sim
 import magnum as mn
 import warnings
-from habitat.tasks.rearrange.rearrange_sim import RearrangeSim
 warnings.filterwarnings('ignore')
-from habitat_sim.utils.settings import make_cfg
-from matplotlib import pyplot as plt
-from habitat_sim.utils import viz_utils as vut
-from omegaconf import DictConfig
+import os
 import numpy as np
+from datetime import datetime as dt
+from matplotlib import pyplot as plt
+from omegaconf import OmegaConf
+
+# Habitat imports
+from habitat.tasks.rearrange.rearrange_sim import RearrangeSim
+from habitat_sim.utils import viz_utils as vut
 from habitat.articulated_agents.robots import FetchRobot
 from habitat.config.default import get_agent_config
-from habitat.config.default_structured_configs import ThirdRGBSensorConfig, HeadRGBSensorConfig, HeadPanopticSensorConfig
-from habitat.config.default_structured_configs import SimulatorConfig, HabitatSimV0Config, AgentConfig
-from habitat.config.default import get_agent_config
-import habitat
-from habitat_sim.physics import JointMotorSettings, MotionType
-from omegaconf import OmegaConf
+from habitat.config.default_structured_configs import (
+    ThirdRGBSensorConfig,
+    HeadRGBSensorConfig,
+    HeadPanopticSensorConfig,
+    SimulatorConfig,
+    HabitatSimV0Config,
+    AgentConfig,
+    TaskConfig,
+    EnvironmentConfig,
+    DatasetConfig,
+    HabitatConfig,
+    ArmActionConfig,
+    BaseVelocityActionConfig,
+    OracleNavActionConfig,
+)
 from habitat.articulated_agent_controllers import (
     HumanoidRearrangeController,
     HumanoidSeqPoseController,
 )
-from habitat.config.default_structured_configs import HumanoidJointActionConfig, HumanoidPickActionConfig
-
-from habitat.config.default_structured_configs import TaskConfig, EnvironmentConfig, DatasetConfig, HabitatConfig
-from habitat.config.default_structured_configs import ArmActionConfig, BaseVelocityActionConfig, OracleNavActionConfig
+from habitat.config.default_structured_configs import (
+    HumanoidJointActionConfig,
+    HumanoidPickActionConfig,
+)
 from habitat.core.env import Env
-
-# Noras additions
-from datetime import datetime as dt
+import habitat
 
 def make_sim_cfg(agent_dict):
     # Start the scene config
@@ -73,6 +83,34 @@ def init_rearrange_env(agent_dict, action_dict):
     res_cfg = OmegaConf.create(hab_cfg)
     return Env(res_cfg)
 
+# ==================== HELPER FUNCTIONS ====================
+
+def random_rotation():
+    """Generate a random rotation quaternion."""
+    random_dir = mn.Vector3(np.random.rand(3)).normalized()
+    random_angle = np.random.random() * np.pi
+    random_quat = mn.Quaternion.rotation(mn.Rad(random_angle), random_dir)
+    return random_quat
+
+
+def custom_sample_humanoid():
+    """Sample a random humanoid pose configuration."""
+    base_transform = mn.Matrix4()
+    random_rot = random_rotation()
+    offset_transform = mn.Matrix4.from_(random_rot.to_matrix(), mn.Vector3())
+    joints = []
+    num_joints = 54
+    for _ in range(num_joints):
+        Q = random_rotation()
+        joints = joints + list(Q.vector) + [float(Q.scalar)]
+    offset_trans = list(np.asarray(offset_transform.transposed()).flatten())
+    base_trans = list(np.asarray(base_transform.transposed()).flatten())
+    random_vec = joints + offset_trans + base_trans
+    return {"human_joints_trans": random_vec}
+
+
+# ==================== ENVIRONMENT SETUP ====================
+
 # Define the agent configuration
 main_agent_config = AgentConfig()
 urdf_path = "data/hab3_bench_assets/humanoids/female_0/female_0.urdf"
@@ -80,23 +118,153 @@ main_agent_config.articulated_agent_urdf = urdf_path
 main_agent_config.articulated_agent_type = "KinematicHumanoid"
 main_agent_config.motion_data_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
 
-
-# Define sensors that will be attached to this agent, here a third_rgb sensor and a head_rgb.
-# We will later talk about why giving the sensors these names
+# Define sensors that will be attached to this agent
 main_agent_config.sim_sensors = {
     "third_rgb": ThirdRGBSensorConfig(),
     "head_rgb": HeadRGBSensorConfig(),
 }
 
-# We create a dictionary with names of agents and their corresponding agent configuration
+# Create agent dictionary
 agent_dict = {"main_agent": main_agent_config}
 
 # Define the actions
-
 action_dict = {
     "humanoid_joint_action": HumanoidJointActionConfig()
 }
+
+# Initialize environment
 env = init_rearrange_env(agent_dict, action_dict)
+
+# ==================== EXAMPLE 1: BASIC SIMULATION ====================
+print("\n=== EXAMPLE 1: Basic Humanoid Simulation ===")
+obs = env.reset()
+
+# Display observations
+fig, ax = plt.subplots(1, len(obs.keys()), figsize=(15, 5))
+for ind, name in enumerate(obs.keys()):
+    ax[ind].imshow(obs[name])
+    ax[ind].set_axis_off()
+    ax[ind].set_title(name)
+plt.tight_layout()
+plt.savefig("noras-habitat-lab/videos/00_basic_observations.png", dpi=100, bbox_inches='tight')
+print("✓ Saved initial observations to noras-habitat-lab/videos/00_basic_observations.png")
+
+# Basic movement with base position and rotation
+sim = env.sim
+observations = []
+num_iter = 100
+pos_delta = mn.Vector3(0.02, 0, 0)
+rot_delta = np.pi / (8 * num_iter)
+art_agent = sim.articulated_agent
+sim.reset()
+
+for _ in range(num_iter):
+    art_agent.base_pos = art_agent.base_pos + pos_delta
+    art_agent.base_rot = art_agent.base_rot + rot_delta
+    sim.step({})
+    observations.append(sim.get_sensor_observations())
+
+now = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
+name = f"{now}_basic_movement_video"
+vut.make_video(observations, "third_rgb", "color", name, open_vid=False)
+# vut.save_video(name, "noras-habitat-lab/videos/")
+print(f"✓ Saved basic movement video to noras-habitat-lab/videos/{name}.mp4")
+
+# ==================== EXAMPLE 2: RANDOM POSE SAMPLING ====================
+print("\n=== EXAMPLE 2: Random Pose Sampling ===")
+observations = []
+num_iter = 40
+env.reset()
+for i in range(num_iter):
+    params = custom_sample_humanoid()
+    action_dict = {
+        "action": "humanoid_joint_action",
+        "action_args": params
+    }
+    obs_result = env.step(action_dict)
+    observations.append(obs_result)
+    if (i + 1) % 10 == 0:
+        print(f"  Completed {i + 1}/{num_iter} steps")
+
+now = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
+name = f"{now}_random_poses_video"
+vut.make_video(observations, "third_rgb", "color", name, open_vid=False)
+# vut.save_video(name, "noras-habitat-lab/videos/")
+print(f"✓ Saved random poses video to noras-habitat-lab/videos/{name}.mp4")
+
+# ==================== EXAMPLE 3: MOTION PLAYBACK FROM FILE ====================
+print("\n=== EXAMPLE 3: Motion Playback (Walking) ===")
+motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
+humanoid_controller = HumanoidRearrangeController(motion_path)
+
+env.reset()
+humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
+observations = []
+
+print(f"  Initial agent position: {env.sim.articulated_agent.base_pos}")
+
+for step in range(100):
+    # Calculate walking pose towards a target position
+    relative_position = env.sim.articulated_agent.base_pos + mn.Vector3(0, 0, 2)
+    humanoid_controller.calculate_walk_pose(relative_position)
+    
+    # Get the computed pose and execute action
+    new_pose = humanoid_controller.get_pose()
+    action_dict = {
+        "action": "humanoid_joint_action",
+        "action_args": {"human_joints_trans": new_pose}
+    }
+    obs_result = env.step(action_dict)
+    observations.append(obs_result)
+    
+    if (step + 1) % 25 == 0:
+        print(f"  Completed {step + 1}/100 walking steps")
+
+now = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
+name = f"{now}_walking_video"
+vut.make_video(observations, "third_rgb", "color", name, open_vid=False)
+# vut.save_video(name, "noras-habitat-lab/videos/")
+print(f"✓ Saved walking video to noras-habitat-lab/videos/{name}.mp4")
+
+# ==================== EXAMPLE 4: REACHING ACTION ====================
+print("\n=== EXAMPLE 4: Humanoid Reaching ===")
+motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
+humanoid_controller = HumanoidRearrangeController(motion_path)
+
+env.reset()
+humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
+observations = []
+
+# Get hand pose and add offset
+offset = env.sim.articulated_agent.base_transformation.transform_vector(mn.Vector3(0, 0.3, 0))
+hand_pose = env.sim.articulated_agent.ee_transform(0).translation + offset
+print(f"  Initial hand pose: {hand_pose}")
+
+for step in range(100):
+    # Modify hand pose with random small movements
+    hand_pose = hand_pose + mn.Vector3((np.random.rand(3) - 0.5) * 0.1)
+    humanoid_controller.calculate_reach_pose(hand_pose, index_hand=0)
+    
+    # Get the computed pose and execute action
+    new_pose = humanoid_controller.get_pose()
+    action_dict = {
+        "action": "humanoid_joint_action",
+        "action_args": {"human_joints_trans": new_pose}
+    }
+    obs_result = env.step(action_dict)
+    observations.append(obs_result)
+    
+    if (step + 1) % 25 == 0:
+        print(f"  Completed {step + 1}/100 reaching steps")
+
+now = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
+name = f"{now}_reaching_video"
+vut.make_video(observations, "third_rgb", "color", name, open_vid=False)
+# vut.save_video(name, "noras-habitat-lab/videos/")
+print(f"✓ Saved reaching video to noras-habitat-lab/videos/{name}.mp4")
+
+print("\n=== ✓ All humanoid simulations completed successfully! ===")
+print("Check 'noras-habitat-lab/videos/' for output videos and images.")
 
 
 obs = env.reset()
@@ -178,7 +346,7 @@ for _ in range(num_iter):
 # )
 
 from habitat.utils.humanoid_utils import MotionConverterSMPLX
-PATH_TO_URDF = "data/humanoids/humanoid_data/female_2/female_2.urdf"
+PATH_TO_URDF = "data/humanoids/humanoid_data/female_3/female_3.urdf"
 PATH_TO_MOTION_NPZ = "data/humanoids/humanoid_data/walk_motion/CMU_10_04_stageii.npz"
 convert_helper = MotionConverterSMPLX(urdf_path=PATH_TO_URDF)
 convert_helper.convert_motion_file(
@@ -195,7 +363,7 @@ humanoid_controller = HumanoidSeqPoseController(motion_path)
 # Because we want the humanoid controller to generate a motion relative to the current agent, we need to set
 # the reference pose
 humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
-humanoid_controller.apply_base_transformation(env.sim.articulated_agent.base_transformation)
+# humanoid_controller.apply_base_transformation(env.sim.articulated_agent.base_transformation)
 
 observations = []
 for _ in range(humanoid_controller.humanoid_motion.num_poses):
@@ -231,10 +399,10 @@ vut.make_video(
     open_vid=True,
 )
 
- # Save to root folder
-vut.save_video(
-    name
-)
+#  # Save to root folder
+# vut.save_video(
+#     name
+# )
 
 # As before, we first define the controller, here we use a special motion file we provide for each agent.
 motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl" 
@@ -257,117 +425,7 @@ for _ in range(100):
         "action": "humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
-    observations.append(env.step(action_dict))
-    
-vut.make_video(
-    observations,
-    "third_rgb",
-    "color",
-    "robot_tutorial_video",
-    open_vid=True,
-)
+print(f"✓ Saved reaching video to noras-habitat-lab/videos/{name}.mp4")
 
-# # We reset the controller
-# env.reset()
-# humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
-# observations = []
-# print(env.sim.articulated_agent.base_pos)
-
-# # Get the hand pose
-# offset =  env.sim.articulated_agent.base_transformation.transform_vector(mn.Vector3(0, 0.3, 0))
-# hand_pose = env.sim.articulated_agent.ee_transform(0).translation + offset
-# for _ in range(100):
-#     # This computes a pose that moves the agent to relative_position
-#     hand_pose = hand_pose + mn.Vector3((np.random.rand(3) - 0.5) * 0.1)
-#     humanoid_controller.calculate_reach_pose(hand_pose, index_hand=0)
-    
-#     # The get_pose function gives as a humanoid pose in the same format as HumanoidJointAction
-#     new_pose = humanoid_controller.get_pose()
-#     action_dict = {
-#         "action": "humanoid_joint_action",
-#         "action_args": {"human_joints_trans": new_pose}
-#     }
-#     observations.append(env.step(action_dict))
-    
-# vut.make_video(
-#     observations,
-#     "third_rgb",
-#     "color",
-#     "robot_tutorial_video",
-#     open_vid=True,
-# )
-
-# # ✅ ✅ ✅ ✅ all of the above has run without error, comes from humanoids_tutorial.ipynb
-
-# # Define the actions
-
-# action_dict = {
-#     "humanoid_joint_action": HumanoidJointActionConfig(),
-#     "humanoid_navigate_action": OracleNavActionConfig(type="OracleNavCoordinateAction", 
-#                                                       motion_control="human_joints",
-#                                                       spawn_max_dist_to_obj=1.0),
-#     "humanoid_pick_obj_id_action": HumanoidPickActionConfig(type="HumanoidPickObjIdAction")
-    
-# }
-# env = init_rearrange_env(agent_dict, action_dict)
-
-# env.reset()
-# rom = env.sim.get_rigid_object_manager()
-# # env.sim.articulated_agent.base_pos = init_pos
-# # As before, we get a navigation point next to an object id
-
-# obj_id = env.sim.scene_obj_ids[0]
-# first_object = rom.get_object_by_id(obj_id)
-
-# object_trans = first_object.translation
-# print(first_object.handle, "is in", object_trans)
-# # TODO: unoccluded object did not work
-# # print(sample)
-# observations = []
-# delta = 2.0
-
-# object_agent_vec = env.sim.articulated_agent.base_pos - object_trans
-# object_agent_vec.y = 0
-# dist_agent_object = object_agent_vec.length()
-# # Walk towards the object
-
-# agent_displ = np.inf
-# agent_rot = np.inf
-# prev_rot = env.sim.articulated_agent.base_rot
-# prev_pos = env.sim.articulated_agent.base_pos
-# while agent_displ > 1e-9 or agent_rot > 1e-9:
-#     prev_rot = env.sim.articulated_agent.base_rot
-#     prev_pos = env.sim.articulated_agent.base_pos
-#     action_dict = {
-#         "action": ("humanoid_navigate_action"), 
-#         "action_args": {
-#               "oracle_nav_lookat_action": object_trans,
-#               "mode": 1
-#           }
-#     }
-#     observations.append(env.step(action_dict))
-    
-#     cur_rot = env.sim.articulated_agent.base_rot
-#     cur_pos = env.sim.articulated_agent.base_pos
-#     agent_displ = (cur_pos - prev_pos).length()
-#     agent_rot = np.abs(cur_rot - prev_rot)
-    
-# # Wait
-# for _ in range(20):
-#     action_dict = {"action": (), "action_args": {}}
-#     observations.append(env.step(action_dict))
-
-# # Pick object
-# observations.append(env.step(action_dict))
-# for _ in range(100):
-    
-#     action_dict = {"action": ("humanoid_pick_obj_id_action"), "action_args": {"humanoid_pick_obj_id": obj_id}}
-#     observations.append(env.step(action_dict)) 
-    
-# vut.make_video(
-#     observations,
-#     "third_rgb",
-#     "color",
-#     "final_robot_tutorial_video",
-#     open_vid=True,
-# )
+print("\n=== ✓ All humanoid simulations completed successfully! ===")
+print("Check 'noras-habitat-lab/videos/' for output videos and images.")
