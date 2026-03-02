@@ -146,3 +146,46 @@ vut.make_video(
 # vut.save_video(name, "noras-habitat-lab/videos/")
 
 print(f"✓ Saved walking video to noras-habitat-lab/videos/{name}.mp4")
+
+
+# ==================== ATTEMPT 2: REACHING ACTION ====================
+print("\n=== ATTEMPT 2: Humanoid Reaching ===")
+motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
+humanoid_controller = HumanoidRearrangeController(motion_path)
+
+env.reset()
+humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
+observations = []
+
+# Get hand pose and add offset
+offset = env.sim.articulated_agent.base_transformation.transform_vector(mn.Vector3(0, 0.3, 0))
+hand_pose = env.sim.articulated_agent.ee_transform(0).translation + offset
+print(f"  Initial hand pose: {hand_pose}")
+
+for step in range(100):
+    # Modify hand pose with random small movements
+    hand_pose = hand_pose + mn.Vector3((np.random.rand(3) - 0.5) * 0.1)
+    humanoid_controller.calculate_reach_pose(hand_pose, index_hand=0)
+    
+    # Get the computed pose and execute action
+    new_pose = humanoid_controller.get_pose()
+    action_dict = {
+        "action": "humanoid_joint_action",
+        "action_args": {"human_joints_trans": new_pose}
+    }
+    obs_result = env.step(action_dict)
+    observations.append(obs_result)
+    
+    if (step + 1) % 25 == 0:
+        print(f"  Completed {step + 1}/100 reaching steps")
+
+now = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
+name = f"{now}_reaching_attempt_video"
+
+vut.make_video(observations,
+               "third_rgb",
+               "color",
+               name,
+               open_vid=True)
+
+print(f"✓ Saved reaching video to noras-habitat-lab/videos/{name}.mp4")
