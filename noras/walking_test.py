@@ -60,8 +60,14 @@ def make_hab_cfg(agent_dict, action_dict):
     task_cfg = TaskConfig(type="RearrangeEmptyTask-v0")
     task_cfg.actions = action_dict
     env_cfg = EnvironmentConfig()
-    dataset_cfg = DatasetConfig(type="RearrangeDataset-v0", data_path="data/hab3_bench_assets/episode_datasets/small_large.json.gz")
-    
+    dataset_cfg = DatasetConfig(type="RearrangeDataset-v0", split="train", data_path="output/dataset.json.gz")
+
+# The above line achieves the same as:
+# habitat:
+#   dataset:
+#     type: RearrangeDataset-v0
+#     split: train
+#     data_path: output/dataset.json.gz
     
     hab_cfg = HabitatConfig()
     hab_cfg.environment = env_cfg
@@ -107,7 +113,7 @@ env = init_rearrange_env(agent_dict, action_dict)
 
 # ==================== ATTEMPT 1: MOTION PLAYBACK FROM FILE ====================
 print("\n=== ATTEMPT 1: Motion Playback (Walking) ===")
-motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
+motion_path = "noras/data/female_0_motion_data_smplx.pkl"
 humanoid_controller = HumanoidRearrangeController(motion_path)
 
 env.reset()
@@ -152,7 +158,7 @@ print(f"✓ Saved walking video to noras-habitat-lab/videos/{name}.mp4")
 
 # ==================== ATTEMPT 2: REACHING ACTION ====================
 print("\n=== ATTEMPT 2: Humanoid Reaching ===")
-motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
+motion_path = "noras/data/female_0_motion_data_smplx.pkl"
 humanoid_controller = HumanoidRearrangeController(motion_path)
 
 env.reset()
