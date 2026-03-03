@@ -5,6 +5,7 @@ from habitat.core.env import Env
 from habitat_sim.utils import viz_utils as vut
 import magnum as mn
 from datetime import datetime as dt
+import numpy as np
 
 from habitat.articulated_agent_controllers import (
     HumanoidRearrangeController,
@@ -104,8 +105,8 @@ action_dict = {
 env = init_rearrange_env(agent_dict, action_dict)
 
 
-# ==================== ATTEMPT: MOTION PLAYBACK FROM FILE ====================
-print("\n=== ATTEMPT: Motion Playback (Walking) ===")
+# ==================== ATTEMPT 1: MOTION PLAYBACK FROM FILE ====================
+print("\n=== ATTEMPT 1: Motion Playback (Walking) ===")
 motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
 humanoid_controller = HumanoidRearrangeController(motion_path)
 
@@ -135,6 +136,8 @@ for step in range(100):
 now = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
 name = f"{now}_walking_attempt_video"
 
+# Make video both makes the video and save to the root folder
+# TODO: figure out how to add oputput path
 vut.make_video(
     observations,
     "third_rgb", "color",
@@ -142,7 +145,6 @@ vut.make_video(
     open_vid=True
     )
 
-# TODO: saving videos doesn't work
 # vut.save_video(name, "noras-habitat-lab/videos/")
 
 print(f"✓ Saved walking video to noras-habitat-lab/videos/{name}.mp4")
