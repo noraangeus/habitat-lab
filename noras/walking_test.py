@@ -1,11 +1,15 @@
 # ==================== IMPORTS ====================
 
+import habitat_sim
 from omegaconf import OmegaConf
 from habitat.core.env import Env
 from habitat_sim.utils import viz_utils as vut
-import magnum as mn
+from matplotlib import pyplot as plt
 from datetime import datetime as dt
+import magnum as mn
 import numpy as np
+from habitat.tasks.rearrange.rearrange_sim import RearrangeSim
+from habitat_sim.physics import JointMotorSettings, MotionType
 
 from habitat.articulated_agent_controllers import (
     HumanoidRearrangeController,
@@ -83,6 +87,28 @@ def init_rearrange_env(agent_dict, action_dict):
     res_cfg = OmegaConf.create(hab_cfg)
     return Env(res_cfg)
 
+# TODO: check if I can get this to work
+def init_rearrange_sim(agent_dict):
+    # Start the scene config
+    sim_cfg = make_sim_cfg(agent_dict)    
+    cfg = OmegaConf.create(sim_cfg)
+    
+    # Create the scene
+    sim = RearrangeSim(cfg)
+
+    # This is needed to initialize the agents
+    sim.agents_mgr.on_new_scene()
+
+    # For this tutorial, we will also add an extra camera that will be used for third person recording.
+    camera_sensor_spec = habitat_sim.CameraSensorSpec()
+    camera_sensor_spec.sensor_type = habitat_sim.SensorType.COLOR
+    camera_sensor_spec.uuid = "scene_camera_rgb"
+
+    # TODO: this is a bit dirty but I think its nice as it shows how to modify a camera sensor...
+    sim.add_sensor(camera_sensor_spec, 0)
+
+    return sim
+
 
 # ==================== ENVIRONMENT SETUP ====================
 
@@ -109,6 +135,9 @@ action_dict = {
 
 # Initialize environment
 env = init_rearrange_env(agent_dict, action_dict)
+
+# TODO: attempt at initializing sim
+sim = init_rearrange_sim(agent_dict)
 
 
 # ==================== ATTEMPT 1: MOTION PLAYBACK FROM FILE ====================
@@ -197,3 +226,91 @@ vut.make_video(observations,
                open_vid=True)
 
 print(f"✓ Saved reaching video to noras-habitat-lab/videos/{name}.mp4")
+
+
+# ==================== ATTEMPT 3: ARTICULATION ATTEMPT ====================
+print("\n=== ATTEMPT 3: Humanoid Articulation ===")
+motion_path = "noras/data/female_0_motion_data_smplx.pkl"
+humanoid_controller = HumanoidRearrangeController(motion_path)
+
+init_pos = mn.Vector3(-5.5,0,-1.5)
+art_agent = sim.articulated_agent
+# We will see later about this
+art_agent.sim_obj.motion_type = MotionType.KINEMATIC
+print("Current agent position:", art_agent.base_pos)
+art_agent.base_pos = init_pos 
+print("New agent position:", art_agent.base_pos)
+# We take a step to update agent position
+_ = sim.step({})
+
+observations = sim.get_sensor_observations()
+print(observations.keys())
+
+# TODO: somewhere after here it fails
+
+_, ax = plt.subplots(1,len(observations.keys()))
+
+for ind, name in enumerate(observations.keys()):
+    ax[ind].imshow(observations[name])
+    ax[ind].set_axis_off()
+    ax[ind].set_title(name)
+
+art_agent.params.cameras.keys()
+
+observations = []
+num_iter = 100
+pos_delta = mn.Vector3(0.02,0,0)
+rot_delta = np.pi / (8 * num_iter)
+art_agent.base_pos = init_pos
+
+# sim.reset()
+# # set_fixed_camera(sim)
+# for _ in range(num_iter):
+#     # TODO: this actually seems to give issues...
+#     art_agent.base_pos = art_agent.base_pos + pos_delta
+#     art_agent.base_rot = art_agent.base_rot + rot_delta
+#     sim.step({})
+#     observations.append(sim.get_sensor_observations())
+
+# vut.make_video(
+#     observations,
+#     "scene_camera_rgb",
+#     "color",
+#     "object_interaction_1_tutorial_video",
+#     open_vid=True,
+# )
+# vut.make_video(
+#     observations,
+#     "third_rgb",
+#     "color",
+#     "object_interaction_2_tutorial_video",
+#     open_vid=True,
+# )
+
+# sim.reset()
+
+observations = []
+# We start by setting the arm to the minimum value
+lower_limit = art_agent.arm_joint_limits[0].copy()
+lower_limit[lower_limit == -np.inf] = 0
+upper_limit = art_agent.arm_joint_limits[1].copy()
+upper_limit[upper_limit == np.inf] = 0
+for i in range(num_iter):
+    alpha = i/num_iter
+    current_joints = upper_limit * alpha + lower_limit * (1 - alpha)
+    art_agent.arm_joint_pos = current_joints
+    sim.step({})
+    observations.append(sim.get_sensor_observations())
+    if i in [0, num_iter-1]:
+        print(f"Step {i}:")
+        print("Arm joint positions:", art_agent.arm_joint_pos)
+        print("Arm end effector translation:", art_agent.ee_transform().translation)
+        print(art_agent.sim_obj.joint_positions)
+
+vut.make_video(
+    observations,
+    "third_rgb",
+    "color",
+    "object_interaction_3_tutorial_video",
+    open_vid=True,
+)
