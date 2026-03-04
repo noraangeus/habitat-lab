@@ -88,10 +88,10 @@ def init_rearrange_env(agent_dict, action_dict):
 
 # Define the agent configuration
 main_agent_config = AgentConfig()
-urdf_path = "data/hab3_bench_assets/humanoids/female_0/female_0.urdf"
+urdf_path = "data/hab3_bench_assets/humanoids/female_2/female_2.urdf"
 main_agent_config.articulated_agent_urdf = urdf_path
 main_agent_config.articulated_agent_type = "KinematicHumanoid"
-main_agent_config.motion_data_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
+main_agent_config.motion_data_path = "data/hab3_bench_assets/humanoids/female_2/female_2_motion_data_smplx.pkl"
 
 # Define sensors that will be attached to this agent
 main_agent_config.sim_sensors = {
