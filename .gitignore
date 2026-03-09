@@ -1,0 +1,15 @@
+data/
+
+examples/
+
+habitat-hitl/
+
+habitat-lab/
+
+output/
+
+outputs/
+
+test/
+
+*.mp4

@@ -1,0 +1,18 @@
+# Taken from [https://deepwiki.com/facebookresearch/habitat-lab/7-tutorials-and-examples] 2026-03-03
+
+# Example dataset configuration
+dataset_path: "noras/data/replica_cad/replicaCAD.scene_dataset_config.json"
+scene_sets:
+  - name: "v3_sc"
+    included_substrings: ["v3_sc"]
+    excluded_substrings: []
+object_sets:
+  - name: "kitchen"
+    included_substrings: ["002_master_chef_can", "003_cracker_box"]
+    excluded_substrings: []
+receptacle_sets:
+  - name: "table"
+    included_object_substrings: ["frl_apartment_table_01"]
+    excluded_object_substrings: []
+    included_receptacle_substrings: []
+    excluded_receptacle_substrings: []
