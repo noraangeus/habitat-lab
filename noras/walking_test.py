@@ -117,7 +117,7 @@ env = init_rearrange_env(agent_dict, action_dict)
 
 # ==================== ATTEMPT 1: MOTION PLAYBACK FROM FILE ====================
 print("\n=== ATTEMPT 1: Motion Playback (Walking) ===")
-motion_path = "noras/data/new_female_0_motion_data.pkl"
+motion_path = "noras/noradata/new_female_0_motion_data.pkl"
 humanoid_controller = HumanoidRearrangeController(motion_path)
 
 env.reset()
