@@ -162,7 +162,7 @@ print(f"✓ Saved walking video to noras-habitat-lab/videos/{name}.mp4")
 
 # ==================== ATTEMPT 2: REACHING ACTION ====================
 print("\n=== ATTEMPT 2: Humanoid Reaching ===")
-motion_path = "noras/noradata/new_new_female_0_motion_data_smplx.pkl"
+motion_path = "noras/noradata/automated_female_0_motion_data_smplx.pkl"
 humanoid_controller = HumanoidRearrangeController(motion_path)
 
 env.reset()

@@ -28,7 +28,7 @@ with open("noras/noradata/new_female_0_motion_data.json", "r") as f:
 motion_data = to_numpy(motion_data)
 
 # Save as pickle
-pkl_path = "noras/noradata/new_new_female_0_motion_data.pkl"
+pkl_path = "noras/noradata/automated_female_0_motion_data.pkl"
 with open(pkl_path, "wb") as f:
     pickle.dump(motion_data, f)
 
