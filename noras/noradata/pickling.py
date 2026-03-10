@@ -14,12 +14,14 @@ with open("noras/noradata/new_female_0_motion_data.json", "r") as data:
     new_female_0_motion_data_obj = json.load(data)
 
 walk_info = new_female_0_motion_data_obj["walk_motion"]
+stop_info = new_female_0_motion_data_obj["stop_pose"]
 
 # Convert lists to numpy arrays (apparently necessary?)
 walk_info["joints_array"] = np.array(walk_info["joints_array"])
 walk_info["transform_array"] = np.array(walk_info["transform_array"])
 walk_info["transform_array2"] = np.array(walk_info["transform_array2"])
 walk_info["displacement"] = np.array(walk_info["displacement"])
+stop_info["joints_array"] = np.array(walk_info["joints_array"])
 
 # Open the target file to write to
 new_female_0_motion_data_file = open("noras/noradata/new_new_female_0_motion_data.pkl", "wb")

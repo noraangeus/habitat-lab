@@ -3,7 +3,6 @@
     "fps": 30,
     "num_frames": 2,
     "displacement": [0.0, 1.0],
-    "stop_pose": { "joints_array": [-1] },
     "left_hand": { "pose_motion": { "joints_array": [0, 0, 0, 0] } },
     "transform_array": [
       [
@@ -34,5 +33,8 @@
       ]
     ],
     "joints_array": [[[0, 0, 0, 1]], [[0, 0, 0, 1]]]
+  },
+  "stop_pose": {
+    "joints": [[0, 0, 0, 1]]
   }
 }
