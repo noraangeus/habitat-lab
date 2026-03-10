@@ -36,8 +36,6 @@ pose_motion["joints_array"] = np.array(pose_motion["joints_array"])
 pose_motion["transform_array"] = np.array(pose_motion["transform_array"], dtype=np.float32)
 left_hand_info["coord"] = np.array(left_hand_info["coord"])
 left_hand_info["coord_info"] = np.array(left_hand_info["coord_info"], dtype=object)
-#coord_info = left_hand_info["coord_info"]
-#coord_info["num_bins"] = np.array(coord_info["num_bins"])
 left_hand_info["min"] = np.array(left_hand_info["min"])
 left_hand_info["max"] = np.array(left_hand_info["max"])
 
