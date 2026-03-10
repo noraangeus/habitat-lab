@@ -20,29 +20,30 @@ def to_numpy(value, dtype=None):
         return value
     return value
 
-# Load JSON
+# Load JSON (change input file HERE)
 with open("noras/noradata/new_female_0_motion_data.json", "r") as f:
     motion_data = json.load(f)
 
 # Recursively convert all lists to numpy arrays
 motion_data = to_numpy(motion_data)
 
-# Save as pickle
+# Save as pickle (change output name HERE)
 pkl_path = "noras/noradata/automated_female_0_motion_data.pkl"
 with open(pkl_path, "wb") as f:
     pickle.dump(motion_data, f)
 
 print(f"✓ Successfully pickled {pkl_path}")
 
-#FLOAT32_KEYS = {"transform_array", "transform_array2", "transform", "transform_array"}
+# Additional allow list
+FLOAT32_KEYS = {"transform_array", "transform_array2", "transform", "transform_array"}
 
-#def to_numpy(value, key=None):
-#    if isinstance(value, dict):
-#        return {k: to_numpy(v, key=k) for k, v in value.items()}
-#    elif isinstance(value, list):
-#        dtype = np.float32 if key in FLOAT32_KEYS else None
-#        try:
-#            return np.array(value, dtype=dtype)
-#        except (ValueError, TypeError):
-#            return np.array(value, dtype=object)
-#    return value
+def to_numpy(value, key=None):
+   if isinstance(value, dict):
+       return {k: to_numpy(v, key=k) for k, v in value.items()}
+   elif isinstance(value, list):
+       dtype = np.float32 if key in FLOAT32_KEYS else None
+       try:
+           return np.array(value, dtype=dtype)
+       except (ValueError, TypeError):
+           return np.array(value, dtype=object)
+   return value
