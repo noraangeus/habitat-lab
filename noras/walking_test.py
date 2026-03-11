@@ -47,7 +47,8 @@ def make_sim_cfg(agent_dict):
 
     
     # Set up an example scene
-    sim_cfg.scene = "data/hab3_bench_assets/hab3-hssd/scenes/103997919_171031233.scene_instance.json"
+    #sim_cfg.scene = "data/hab3_bench_assets/hab3-hssd/scenes/103997919_171031233.scene_instance.json"
+    sim_cfg.scene = "data/hab3_bench_assets/hab3-hssd/scenes/108736635_177263256.scene_instance.json"
     sim_cfg.scene_dataset = "data/hab3_bench_assets/hab3-hssd/hab3-hssd.scene_dataset_config.json"
     sim_cfg.additional_object_paths = ['data/objects/ycb/configs/']
 
@@ -96,6 +97,7 @@ urdf_path = "data/hab3_bench_assets/humanoids/female_2/female_2.urdf"
 main_agent_config.articulated_agent_urdf = urdf_path
 main_agent_config.articulated_agent_type = "KinematicHumanoid"
 main_agent_config.motion_data_path = "data/hab3_bench_assets/humanoids/female_2/female_2_motion_data_smplx.pkl"
+#main_agent_config.motion_data_path = "noras/noradata/new_new_female_0_motion_data.pkl"
 
 # Define sensors that will be attached to this agent
 main_agent_config.sim_sensors = {
@@ -117,7 +119,7 @@ env = init_rearrange_env(agent_dict, action_dict)
 
 # ==================== ATTEMPT 1: MOTION PLAYBACK FROM FILE ====================
 print("\n=== ATTEMPT 1: Motion Playback (Walking) ===")
-motion_path = "noras/noradata/new_new_female_0_motion_data.pkl"
+motion_path = "noras/noradata/female_0_motion_data_smplx.pkl"
 humanoid_controller = HumanoidRearrangeController(motion_path)
 
 env.reset()
@@ -161,43 +163,43 @@ print(f"✓ Saved walking video to noras-habitat-lab/videos/{name}.mp4")
 
 
 # ==================== ATTEMPT 2: REACHING ACTION ====================
-print("\n=== ATTEMPT 2: Humanoid Reaching ===")
-motion_path = "noras/noradata/automated_female_0_motion_data_smplx.pkl"
-humanoid_controller = HumanoidRearrangeController(motion_path)
+# print("\n=== ATTEMPT 2: Humanoid Reaching ===")
+# motion_path = "noras/noradata/automated_female_0_motion_data_smplx.pkl"
+# humanoid_controller = HumanoidRearrangeController(motion_path)
 
-env.reset()
-humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
-observations = []
+# env.reset()
+# humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
+# observations = []
 
-# Get hand pose and add offset
-offset = env.sim.articulated_agent.base_transformation.transform_vector(mn.Vector3(0, 0.3, 0))
-hand_pose = env.sim.articulated_agent.ee_transform(0).translation + offset
-print(f"  Initial hand pose: {hand_pose}")
+# # Get hand pose and add offset
+# offset = env.sim.articulated_agent.base_transformation.transform_vector(mn.Vector3(0, 0.3, 0))
+# hand_pose = env.sim.articulated_agent.ee_transform(0).translation + offset
+# print(f"  Initial hand pose: {hand_pose}")
 
-for step in range(100):
-    # Modify hand pose with random small movements
-    hand_pose = hand_pose + mn.Vector3((np.random.rand(3) - 0.5) * 0.1)
-    humanoid_controller.calculate_reach_pose(hand_pose, index_hand=0)
+# for step in range(100):
+#     # Modify hand pose with random small movements
+#     hand_pose = hand_pose + mn.Vector3((np.random.rand(3) - 0.5) * 0.1)
+#     humanoid_controller.calculate_reach_pose(hand_pose, index_hand=0)
     
-    # Get the computed pose and execute action
-    new_pose = humanoid_controller.get_pose()
-    action_dict = {
-        "action": "humanoid_joint_action",
-        "action_args": {"human_joints_trans": new_pose}
-    }
-    obs_result = env.step(action_dict)
-    observations.append(obs_result)
+#     # Get the computed pose and execute action
+#     new_pose = humanoid_controller.get_pose()
+#     action_dict = {
+#         "action": "humanoid_joint_action",
+#         "action_args": {"human_joints_trans": new_pose}
+#     }
+#     obs_result = env.step(action_dict)
+#     observations.append(obs_result)
     
-    if (step + 1) % 25 == 0:
-        print(f"  Completed {step + 1}/100 reaching steps")
+#     if (step + 1) % 25 == 0:
+#         print(f"  Completed {step + 1}/100 reaching steps")
 
-now = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
-name = f"{now}_reaching_attempt_video"
+# now = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
+# name = f"{now}_reaching_attempt_video"
 
-vut.make_video(observations,
-               "third_rgb",
-               "color",
-               name,
-               open_vid=True)
+# vut.make_video(observations,
+#                "third_rgb",
+#                "color",
+#                name,
+#                open_vid=True)
 
-print(f"✓ Saved reaching video to noras-habitat-lab/videos/{name}.mp4")
+# print(f"✓ Saved reaching video to noras-habitat-lab/videos/{name}.mp4")

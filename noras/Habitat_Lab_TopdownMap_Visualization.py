@@ -121,6 +121,7 @@ def example_pointnav_draw_target_birdseye_view():
     )
     plt.imshow(target_image)
     plt.title("pointnav_target_image.png")
+    plt.savefig("pointnav_target_image.png")
     plt.show()
 
 
@@ -163,6 +164,7 @@ def example_pointnav_draw_target_birdseye_view_agent_on_border():
             )
             plt.imshow(target_image)
             plt.title("pointnav_target_image_edge_%d.png" % ii)
+            plt.savefig("pointnav_target_image_edge_%d.png" % ii)
             plt.show()
 
 
@@ -202,6 +204,7 @@ def example_get_topdown_map():
         top_down_map = recolor_map[top_down_map]
         plt.imshow(top_down_map)
         plt.title("top_down_map.png")
+        plt.savefig("top_down_map.png")
         plt.show()
 
 
