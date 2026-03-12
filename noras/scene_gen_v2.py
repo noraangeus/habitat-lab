@@ -103,9 +103,9 @@ def build_scene(sim):
     # The gap between Z=-3 and Z=-7 is the doorway — no wall segment there.
 
     # Some furniture (static boxes acting as obstacles)
-    add_box(sim, pos=(-2,  0.4, -2),  scale=(1.2, 0.8, 0.6), name="sofa")
-    add_box(sim, pos=(-8,  0.4, -2),  scale=(0.6, 0.8, 0.6), name="armchair")
-    add_box(sim, pos=(-8,  0.4, -8),  scale=(1.8, 0.6, 0.9), name="bed")
+    # add_box(sim, pos=(-2,  0.4, -2),  scale=(1.2, 0.8, 0.6), name="sofa")
+    # add_box(sim, pos=(-8,  0.4, -2),  scale=(0.6, 0.8, 0.6), name="armchair")
+    # add_box(sim, pos=(-8,  0.4, -8),  scale=(1.8, 0.6, 0.9), name="bed")
     add_box(sim, pos=(-2,  0.4, -8),  scale=(0.8, 0.8, 0.8), name="desk")
 
 
@@ -118,7 +118,7 @@ def recompute_navmesh(sim):
     settings.include_static_objects = True
 
     sim.recompute_navmesh(sim.pathfinder, settings)
-    
+
     print(f"NavMesh ready  |  navigable area: {sim.pathfinder.navigable_area:.1f} m²")
 
 
@@ -152,6 +152,7 @@ def interpolate_path(waypoints, steps_per_segment=30):
         for t in np.linspace(0, 1, steps_per_segment, endpoint=False):
             frames.append(tuple(a + t * (b - a)))
     frames.append(waypoints[-1])
+    print(f"Path interpolated!!!!")
     return frames
 
 
@@ -164,18 +165,17 @@ CAMERA_CENTRE = (-5.0, CAMERA_HEIGHT, -5.0)   # above scene centre
 
 
 def set_overhead_camera(sim):
-    """
-    Lock agent-0 (which carries the camera) to a fixed overhead pose.
-    The camera looks straight down (pitch = -90°).
-    """
     state = sim.agents[0].get_state()
     state.position = np.array(CAMERA_CENTRE, dtype=np.float32)
-    # Quaternion for -90° pitch (looking straight down): axis=(1,0,0), angle=-π/2
-    state.rotation = mn.Quaternion.rotation(
-        mn.Deg(-90), mn.Vector3(1, 0, 0)
-    )
-    sim.agents[0].set_state(state, reset_sensors=True)
 
+    angle = -np.pi / 2
+    state.rotation = np.quaternion(
+        np.cos(angle / 2),
+        np.sin(angle / 2),
+        0.0,
+        0.0
+    )
+    sim.agents[0].set_state(state, reset_sensors = True)
 
 def draw_agent_overlay(frame, pos3d_list, colors, sim):
     """
@@ -219,19 +219,26 @@ def main():
     # ── Plan paths ───────────────────────────────────────────────────────────
     print("Planning paths …")
 
+    plan_path0 = plan_path(sim,
+                  start=(-2.0, 0.0, -1.0),
+                  end  =(-2.5, 0.0, -0.5)),
+    
+    plan_path1 = plan_path(sim,
+                  start=(-7.0, 0.0, -8.0),
+                  end  =(-6.0, 0.0, -7.5)),
+    
+    print(plan_path0)
+    print(plan_path1)
+
     # Agent 0: room A → through doorway → room B
     path0 = interpolate_path(
-        plan_path(sim,
-                  start=(-2.0, 0.0, -2.0),    # room A, near sofa
-                  end  =(-8.0, 0.0, -8.5)),   # room B, near bed
+        plan_path0,
         steps_per_segment=STEPS_PER_SEG
     )
 
     # Agent 1: room B → through doorway → room A  (opposite direction)
     path1 = interpolate_path(
-        plan_path(sim,
-                  start=(-8.0, 0.0, -8.0),    # room B
-                  end  =(-1.5, 0.0, -1.5)),   # room A
+        plan_path1,
         steps_per_segment=STEPS_PER_SEG
     )
 
@@ -245,6 +252,7 @@ def main():
 
     # ── Lock overhead camera once ─────────────────────────────────────────────
     set_overhead_camera(sim)
+    print("Managed to set overhead camera")
 
     # ── Video writer ──────────────────────────────────────────────────────────
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
@@ -256,17 +264,25 @@ def main():
         (80,  255, 80),    # green — agent 1
     ]
 
+    print("Managed to set video writer")
+
     # ── Render loop ───────────────────────────────────────────────────────────
     for frame_idx in range(total_frames):
         # Clamp so shorter path holds its final position
         pos0 = path0[min(frame_idx, len(path0) - 1)]
         pos1 = path1[min(frame_idx, len(path1) - 1)]
 
+        print("Managed to clamp shorter paths")
+
+        # TODO: here is where the issues happens
+
         # Move agent 1 (no camera — just update world position via rigid body
         # or directly through the agent state)
         state1 = sim.agents[1].get_state()
         state1.position = np.array(pos1, dtype=np.float32)
         sim.agents[1].set_state(state1)
+
+        print("Managed to move agent 1")
 
         # Keep overhead camera fixed (agent 0 must not drift)
         set_overhead_camera(sim)
