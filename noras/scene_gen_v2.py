@@ -188,7 +188,7 @@ def draw_agent_overlay(frame, pos3d_list, colors, sim):
     scene_h = 10.0
     x_min, z_min = -10.0, -10.0
 
-    for (x, y, z), color in zip(pos3d_list, colors):
+    for (x, z), color in zip(pos3d_list, colors):
         # Normalise to [0,1] then to pixel coords
         px = int((x - x_min) / scene_w * W)
         py = int((z - z_min) / scene_h * H)
@@ -278,14 +278,16 @@ def main():
 
         # Move agent 1 (no camera — just update world position via rigid body
         # or directly through the agent state)
-        state1 = sim.agents[1].get_state()
-        state1.position = np.array(pos1, dtype=np.float32)
-        sim.agents[1].set_state(state1)
+        # state1 = sim.agents[1].get_state()
+        # state1.position = np.array(pos1, dtype=np.float32)
+        # sim.agents[1].set_state(state1)
 
         print("Managed to move agent 1")
 
         # Keep overhead camera fixed (agent 0 must not drift)
         set_overhead_camera(sim)
+
+        print("Managed to set overhead camera 1")
 
         # Render
         obs   = sim.get_sensor_observations()
@@ -297,7 +299,7 @@ def main():
             frame,
             pos3d_list=[pos0, pos1],
             colors=AGENT_COLORS,
-            sim=sim,
+            sim=sim
         )
 
         # Add frame counter HUD
