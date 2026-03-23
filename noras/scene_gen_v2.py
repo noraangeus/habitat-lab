@@ -29,6 +29,7 @@ def make_cfg(scene_filepath="NONE"):
     backend_cfg = habitat_sim.SimulatorConfiguration()
     backend_cfg.scene_id = scene_filepath   # "NONE" = empty world
     backend_cfg.enable_physics = True
+    backend_cfg.use_semantic_textures = False
 
     # Overhead spectator camera (attached to agent-0, but we'll lock its
     # pose so it never moves)
@@ -98,8 +99,8 @@ def build_scene(sim):
     add_box(sim, pos=(-10,1.5,  -5), scale=(W,  3, 10), name="wall_left")
 
     # Interior dividing wall with a doorway gap (Z = -6 … -4)
-    add_box(sim, pos=(-5, 1.5, -1.5), scale=(10, 3, W), name="divider_north")  # Z: 0  → -3
-    add_box(sim, pos=(-5, 1.5, -8.5), scale=(10, 3, W), name="divider_south")  # Z: -7 → -10
+    add_box(sim, pos=(-5, 1.5, -1.0), scale=(10, 3, W), name="divider_north")  # Z: 0  → -3
+    add_box(sim, pos=(-5, 1.5, -8.0), scale=(10, 3, W), name="divider_south")  # Z: -7 → -10
     # The gap between Z=-3 and Z=-7 is the doorway — no wall segment there.
 
     # Some furniture (static boxes acting as obstacles)
@@ -177,25 +178,37 @@ def set_overhead_camera(sim):
     )
     sim.agents[0].set_state(state, reset_sensors = True)
 
+
 def draw_agent_overlay(frame, pos3d_list, colors, sim):
-    """
-    Project 3D agent positions onto the overhead image as coloured circles.
-    We use a simple ortho projection since the camera is directly overhead.
-    """
-    H, W = frame.shape[:2]
-    # Scene spans X: -10…0, Z: -10…0
+    # Explicitly convert to a standard numpy array first
+    frame = np.array(frame, dtype=np.uint8)
+
+    H = frame.shape[0]   # index directly instead of tuple unpacking
+    W = frame.shape[1]   # guarantees plain Python int via index
+    # H = int(H)
+    # W = int(W)
+
     scene_w = 10.0
     scene_h = 10.0
     x_min, z_min = -10.0, -10.0
 
-    for (x, z), color in zip(pos3d_list, colors):
-        # Normalise to [0,1] then to pixel coords
+    for pos, color in zip(pos3d_list, colors):
+        # print(type(pos[0]))
+        # print(type(pos[1]))
+        print("pos3d_list:", pos3d_list)
+        print("colors:", colors)
+
+        pos_flat = np.array(pos).flatten()
+        x = float(pos_flat[0])   # index instead of tuple unpacking
+        z = float(pos_flat[-1])   # forces scalar regardless of input type
+
         px = int((x - x_min) / scene_w * W)
         py = int((z - z_min) / scene_h * H)
-        py = H - py   # flip Z (image Y grows downward)
+        py = H - py
+
         if 0 <= px < W and 0 <= py < H:
             cv2.circle(frame, (px, py), 12, color, -1)
-            cv2.circle(frame, (px, py),  12, (255, 255, 255), 2)
+            cv2.circle(frame, (px, py), 12, (255, 255, 255), 2)
 
     return frame
 
@@ -206,7 +219,7 @@ def draw_agent_overlay(frame, pos3d_list, colors, sim):
 
 def main():
     VIDEO_PATH   = "scene_walkthrough.mp4"
-    FPS          = 30
+    FPS          = 24
     RESOLUTION   = (1280, 720)   # W × H  for OpenCV
     STEPS_PER_SEG = 20           # interpolation smoothness
 
@@ -214,18 +227,58 @@ def main():
     print("Initialising simulator …")
     sim = habitat_sim.Simulator(make_cfg())
     build_scene(sim)
+
+    # MORE DEBUGGING
+    # ← Check this value before recompute
+    print("Objects in scene:", sim.get_rigid_object_manager().get_num_objects())
     recompute_navmesh(sim)
+    print("Navigable area after bake:", sim.pathfinder.navigable_area)
+
+    recompute_navmesh(sim)
+
+
+    # DEBUGGING
+
+    print("\nRandom navigable points:")
+    for i in range(5):
+        pt = sim.pathfinder.get_random_navigable_point()
+        print(f"  {i}: {pt}")
+
+    print("\nNavigability of start/end points:")
+    test_points = [
+        ("p0 start", (-2.0, 0.1, -1.0)),
+        ("p0 end",   (-2.5, 0.1, -0.5)),
+        ("p1 start", (-7.0, 0.1, -8.0)),
+        ("p1 end",   (-6.0, 0.1, -7.5)),
+    ]
+    for label, pt in test_points:
+        arr = np.array(pt, dtype=np.float32)
+        print(f"  {label}: navigable={sim.pathfinder.is_navigable(arr)}, snapped={sim.pathfinder.snap_point(arr)}")
+
+    print("\nRaw path results:")
+    for (start, end) in [
+        ((-2.0, 0.1, -1.0), (-2.5, 0.1, -0.5)),
+        ((-7.0, 0.1, -8.0), (-6.0, 0.1, -7.5)),
+    ]:
+        p = habitat_sim.ShortestPath()
+        p.requested_start = np.array(start, dtype=np.float32)
+        p.requested_end   = np.array(end,   dtype=np.float32)
+        found = sim.pathfinder.find_path(p)
+        print(f"  {start} → {end}")
+        print(f"    found={found}, num points={len(p.points)}, geodesic dist={p.geodesic_distance:.3f}")
+        print(f"    points={p.points}")
+
 
     # ── Plan paths ───────────────────────────────────────────────────────────
     print("Planning paths …")
 
     plan_path0 = plan_path(sim,
-                  start=(-2.0, 0.0, -1.0),
-                  end  =(-2.5, 0.0, -0.5)),
+                  start=(-2.0, 0.1, -1.0),
+                  end  =(-2.5, 0.1, -0.5)),
     
     plan_path1 = plan_path(sim,
-                  start=(-7.0, 0.0, -8.0),
-                  end  =(-6.0, 0.0, -7.5)),
+                  start=(-7.0, 0.1, -8.0),
+                  end  =(-6.0, 0.1, -7.5)),
     
     print(plan_path0)
     print(plan_path1)
@@ -243,6 +296,8 @@ def main():
     )
 
     if not path0 or not path1:
+        print("path0:", path0)
+        print("path1:", path1)
         print("Path planning failed — check that start/end points are navigable.")
         sim.close()
         return

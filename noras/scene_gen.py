@@ -2,6 +2,7 @@ import habitat_sim
 import magnum as mn
 import numpy as np
 import cv2
+from datetime import datetime as dt
 
 # --- 1. Create sim with an empty/minimal stage ---
 backend_cfg = habitat_sim.SimulatorConfiguration()
@@ -9,15 +10,21 @@ backend_cfg.scene_id = "NONE"  # empty scene
 backend_cfg.enable_physics = True
 
 
-# camera_spec = habitat_sim.CameraSensorSpec()
-# camera_spec.uuid = "overhead_rgb"
-# camera_spec.sensor_type = habitat_sim.SensorType.COLOR
-# camera_spec.resolution [720, 1280]
-# camera_spec.position = mn.Vector3(0, 8.0, 0) # aka high above
-# camera_spec.orientation = mn.Vector3(-90, 0, 0) #look straight down
+camera_spec = habitat_sim.CameraSensorSpec()
+camera_spec.uuid = "overhead_rgb"
+camera_spec.sensor_type = habitat_sim.SensorType.COLOR
+camera_spec.resolution = [720, 1280]
+camera_spec.position = mn.Vector3(0, 8.0, 0) # aka high above
+camera_spec.orientation = mn.Vector3(-90, 0, 0) #look straight down
 
+# Attach camera sensors to agents
+agent_cfgs = []
+for _ in range(2):
+    agent_cfg = habitat_sim.agent.AgentConfiguration()
+    agent_cfg.sensor_specifications = [camera_spec]
+    agent_cfgs.append(agent_cfg)
 
-agent_cfgs = [habitat_sim.agent.AgentConfiguration() for _ in range(2)]  # 2 agents
+# agent_cfgs = [habitat_sim.agent.AgentConfiguration() for _ in range(2)]  # 2 agents
 # agent_cfg = habitat_sim.agent.AgentConfiguration()
 cfg = habitat_sim.Configuration(backend_cfg, agent_cfgs)
 sim = habitat_sim.Simulator(cfg)
@@ -73,10 +80,31 @@ for i, agent in enumerate(sim.agents):
 
 
 # ----- Video writer -----
-# fps = 30
-# out = cv2.VideoWriter(
-#     "scene_gen_attempt.mp4",
-#     cv2.VideoWriter_fourcc(*"mp4v"),
-#     fps,
-#     (1280,720)
-# )
+fps = 30
+now = dt.now().strftime("%Y-%m-%dT%H:%M:%S")
+name = f"scene_gen_attempt_{now}.mp4"
+out = cv2.VideoWriter(
+    name,
+    cv2.VideoWriter_fourcc(*"mp4v"),
+    fps,
+    (1280,720)
+)
+
+# --- 6. Render loop ---
+num_frames = fps * 10  # 10 seconds of video
+
+for frame in range(num_frames):
+    # Step the simulation
+    sim.step_physics(1.0 / fps)
+
+    # Get observation from agent 0's camera
+    obs = sim.get_sensor_observations(agent_ids=0)
+    rgb = obs["overhead_rgb"]
+
+    # habitat_sim returns RGBA, OpenCV needs BGR
+    bgr = cv2.cvtColor(rgb[:, :, :3], cv2.COLOR_RGB2BGR)
+
+    out.write(bgr)
+
+out.release()
+print("Video saved!!!!!")
