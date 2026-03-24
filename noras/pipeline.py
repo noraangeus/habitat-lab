@@ -98,17 +98,52 @@ motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_sm
 # We define here humanoid controller
 humanoid_controller = HumanoidRearrangeController(motion_path)
 
-# ------------------------ SET INITIAL CONFIGURATION ----------------------------- #
+# ------------------------ SET INITIAL AGENT CONFIGURATION ----------------------------- #
 env.reset()
 sim = env.sim
 #sim.reset()
 art_agent = sim.articulated_agent
 
-initial_pos = mn.Vector3(-2, 0, -1)
-#initial_rot = 0 * np.pi
-
+# Start position!!!!
+initial_pos = mn.Vector3(-2, 0, -5)
 art_agent.base_pos = initial_pos
-#art_agent.base_rot = initial_rot
+
+# Start angle (no rotation, in radians)
+initial_rot = 0.0
+art_agent.base_rot = initial_rot
+
+# ------------------------ CAMERA CONFIGURATION ----------------------------- #
+
+# Create a new scene node for the third-person camera
+scene_graph = sim.get_active_scene_graph()
+root_node = scene_graph.get_root_node()
+third_cam_node = root_node.create_child()
+
+
+# Position the camera wherever you want
+third_cam_node.translation = initial_pos  # same as inital_pos
+# third_cam_node.rotation = habitat_sim.utils.quat_from_angle_axis(
+#     0.0, [0, 1, 0]
+# )
+
+# Create the sensor spec
+cam_spec = habitat_sim.CameraSensorSpec()
+cam_spec.uuid = "third_person_camera"
+cam_spec.sensor_type = habitat_sim.SensorType.COLOR
+cam_spec.resolution = [720, 1280]
+cam_spec.position = initial_pos
+cam_spec.orientation = mn.Vector3(0, 0, 0)
+
+# Attach the sensor to the node
+third_person_cam = habitat_sim.CameraSensor(third_cam_node, cam_spec)
+
+
+# ------------------------ MAP COORDINATES ------------------------------------ #
+# Biggest scene:
+# bottom wall has x=0, and x > 0 is outside the flat
+
+# Smallest scene:
+# 
 
 # ------------------------ GENERATE MOTIONS ------------------------------------ #
 
@@ -116,7 +151,8 @@ art_agent.base_pos = initial_pos
 humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
 observations = []
 
-target_pos = mn.Vector3(0, 0, -1)
+# ---------- LOOP 1: walk forward ----------
+target_pos = mn.Vector3(-0.001, 0, -0.005)
 # mn.Vector3(x, y, z)
 #            ↑  ↑  ↑
 #          left up forward
@@ -136,12 +172,65 @@ for _ in range(num_iter):
     }
     observations.append(env.step(action_dict))
 
+# ---------- LOOP 2: turn and walk forward in new direction ----------
+# Set new start pos
+art_agent.base_pos = target_pos
+num_iter=150
+
+# Reset the controller with the new transformation
+# TODO: how to make the camera stay smooth?
+#humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
+
+# Set new target position
+target_pos = mn.Vector3(-7, 0, -2)  # Adjust the distance as needed
+target_position = env.sim.articulated_agent.base_pos + target_pos
+
+for _ in range(num_iter):
+    # This computes a pose that moves the agent to the fixed target position
+    humanoid_controller.calculate_walk_pose(target_position)
+    
+    # The get_pose function gives as a humanoid pose in the same format as HumanoidJointAction
+    new_pose = humanoid_controller.get_pose()
+    action_dict = {
+        "action": "humanoid_joint_action",
+        "action_args": {"human_joints_trans": new_pose}
+    }
+    observations.append(env.step(action_dict))
+
+# ---------- LOOP 3: turn again  ----------
+# Set new start pos
+art_agent.base_pos = target_pos
+
+# Reset the controller with the new transformation
+# TODO: how to make the camera stay smooth?
+# humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
+
+# Sety new target position
+target_pos = mn.Vector3(-7, 0, 2) 
+target_position = env.sim.articulated_agent.base_pos + target_pos
+
+for _ in range(num_iter):
+    # This computes a pose that moves the agent to the fixed target position
+    humanoid_controller.calculate_walk_pose(target_position)
+    
+    # The get_pose function gives as a humanoid pose in the same format as HumanoidJointAction
+    new_pose = humanoid_controller.get_pose()
+    action_dict = {
+        "action": "humanoid_joint_action",
+        "action_args": {"human_joints_trans": new_pose}
+    }
+    observations.append(env.step(action_dict))
+
+
+
+# ------------------------ GENERATE OUTPUT VIDEO ------------------------------------ #
+
 vut.make_video(
     observations,
-    "third_rgb",
+    "overhead_rgb",
     "color",
     "robot_tutorial_video_test",
     open_vid=True,
 )
 
-print("Done with the tutorial!")
+print("Video done!")
