@@ -38,17 +38,24 @@ def make_sim_cfg(agent_dict):
     sim_cfg.scene_dataset = "data/hab3_bench_assets/hab3-hssd/hab3-hssd.scene_dataset_config.json"
     sim_cfg.additional_object_paths = ['data/objects/ycb/configs/']
 
-    cfg = OmegaConf.create(sim_cfg)
+    # cfg = OmegaConf.create(sim_cfg)
+    # # Set the scene agents
+    # cfg.agents = agent_dict
 
-    # Set the scene agents
-    cfg.agents = agent_dict
+    # More attempts at fixing agent_dict
+    cfg = OmegaConf.structured(sim_cfg)
+    cfg.agents = OmegaConf.create()
+    for name, agent in agent_dict.items():
+        cfg.agents[name] = OmegaConf.structured(agent)
+
     cfg.agents_order = list(cfg.agents.keys())
+    # cfg.num_agents = len(cfg.agents_order)
     return cfg
 
 def make_hab_cfg(agent_dict, action_dict):
     sim_cfg = make_sim_cfg(agent_dict)
     task_cfg = TaskConfig(type="RearrangeEmptyTask-v0")
-    task_cfg.actions = action_dict
+    task_cfg.actions = {"humanoid_joint_action": HumanoidJointActionConfig()}
     env_cfg = EnvironmentConfig()
     dataset_cfg = DatasetConfig(type="RearrangeDataset-v0", data_path="data/hab3_bench_assets/episode_datasets/small_large.json.gz")
     
@@ -67,7 +74,7 @@ def init_rearrange_env(agent_dict, action_dict):
     return Env(res_cfg)
 
 # --------------------------------------------------------------------------- #
-##################### Initializing humanoids in the scene #####################
+##################### Initializing humanoids AND CAMERA in the scene #####################
 # --------------------------------------------------------------------------- #
 
 # Define the agent configuration
@@ -84,8 +91,29 @@ main_agent_config.sim_sensors = {
    "head_rgb": HeadRGBSensorConfig(),
 }
 
+camera_agent_config = AgentConfig()
+
+# Fixing the action_dict becoming larger
+camera_agent_config.articulated_agent_type = ""
+camera_agent_config.articulated_agent_urdf = ""
+camera_agent_config.motion_data_path = ""
+
+# No body needed,just a rig
+camera_sensor = HeadRGBSensorConfig()
+camera_sensor.uuid = "static cam"
+camera_sensor.width = 1280
+camera_sensor.height = 720
+
+# Position relative to the agent
+camera_sensor.position = [0, 1.5, 0]  # 2 units above the agent
+
+camera_agent_config.sim_sensors = {
+    "static cam": camera_sensor
+}
+
 # We create a dictionary with names of agents and their corresponding agent configuration
-agent_dict = {"main_agent": main_agent_config}
+agent_dict = {"main_agent": main_agent_config,
+              "camera_agent": camera_agent_config}
 
 # Define the actions
 action_dict = {
@@ -98,10 +126,18 @@ motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_sm
 # We define here humanoid controller
 humanoid_controller = HumanoidRearrangeController(motion_path)
 
-# ------------------------ SET INITIAL AGENT CONFIGURATION ----------------------------- #
+# ------------------------ SET INITIAL AGENT AND CAM CONFIGURATION ----------------------------- #
 env.reset()
 sim = env.sim
 #sim.reset()
+
+# Acces second agent (the camera rig)
+camera_agent = sim.get_agent(1)
+
+# Set the camera to be static (not affected by physics)
+camera_pos = mn.Vector3(0, 1.5, 0)  # TODO: adjust values
+camera_agent.scene_node().translation = camera_pos
+
 art_agent = sim.articulated_agent
 
 # Start position!!!!
@@ -111,32 +147,6 @@ art_agent.base_pos = initial_pos
 # Start angle (no rotation, in radians)
 initial_rot = 0.0
 art_agent.base_rot = initial_rot
-
-# ------------------------ CAMERA CONFIGURATION ----------------------------- #
-
-# Create a new scene node for the third-person camera
-scene_graph = sim.get_active_scene_graph()
-root_node = scene_graph.get_root_node()
-third_cam_node = root_node.create_child()
-
-
-# Position the camera wherever you want
-third_cam_node.translation = initial_pos  # same as inital_pos
-# third_cam_node.rotation = habitat_sim.utils.quat_from_angle_axis(
-#     0.0, [0, 1, 0]
-# )
-
-# Create the sensor spec
-cam_spec = habitat_sim.CameraSensorSpec()
-cam_spec.uuid = "third_person_camera"
-cam_spec.sensor_type = habitat_sim.SensorType.COLOR
-cam_spec.resolution = [720, 1280]
-cam_spec.position = initial_pos
-cam_spec.orientation = mn.Vector3(0, 0, 0)
-
-# Attach the sensor to the node
-third_person_cam = habitat_sim.CameraSensor(third_cam_node, cam_spec)
-
 
 # ------------------------ MAP COORDINATES ------------------------------------ #
 # Biggest scene:
@@ -150,6 +160,7 @@ third_person_cam = habitat_sim.CameraSensor(third_cam_node, cam_spec)
 # We reset the controller
 humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
 observations = []
+# obs = ["camera_agent"]["static_cam"]
 
 # ---------- LOOP 1: walk forward ----------
 target_pos = mn.Vector3(-0.001, 0, -0.005)
@@ -170,7 +181,10 @@ for _ in range(num_iter):
         "action": "humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
-    observations.append(env.step(action_dict))
+    obs = env.step(action_dict)
+
+    # Extract only camera agent view
+    observations.append({"static_cam": obs["camera_agent"]["static cam"]})
 
 # ---------- LOOP 2: turn and walk forward in new direction ----------
 # Set new start pos
@@ -195,7 +209,10 @@ for _ in range(num_iter):
         "action": "humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
-    observations.append(env.step(action_dict))
+    obs = env.step(action_dict)
+
+    # Extract only camera agent view
+    observations.append({"static_cam": obs["camera_agent"]["static cam"]})
 
 # ---------- LOOP 3: turn again  ----------
 # Set new start pos
@@ -219,7 +236,10 @@ for _ in range(num_iter):
         "action": "humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
-    observations.append(env.step(action_dict))
+    obs = env.step(action_dict)
+
+    # Extract only camera agent view
+    observations.append({"static_cam": obs["camera_agent"]["static cam"]})
 
 
 
@@ -227,7 +247,7 @@ for _ in range(num_iter):
 
 vut.make_video(
     observations,
-    "overhead_rgb",
+    "static_cam",
     "color",
     "robot_tutorial_video_test",
     open_vid=True,
