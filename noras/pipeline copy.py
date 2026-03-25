@@ -4,6 +4,7 @@
 import habitat_sim
 import magnum as mn
 import warnings
+import os
 from habitat.tasks.rearrange.rearrange_sim import RearrangeSim
 warnings.filterwarnings('ignore')
 from habitat_sim.utils.settings import make_cfg
@@ -71,7 +72,7 @@ def init_rearrange_env(agent_dict, action_dict):
     return Env(res_cfg)
 
 
-def spawn_static_humanoids(sim, urdf_paths, placements):
+def spawn_static_humanoids(sim, urdf_paths, placements, motion_data_paths=None):
     """
     Spawn scene-only humanoids as articulated objects.
     These are not part of Rearrange task agents, so they do not clash
@@ -85,25 +86,44 @@ def spawn_static_humanoids(sim, urdf_paths, placements):
 
     # Ensures each humanoid gets a different URDF
     urdf_index = 0
-    static_pose_controller = HumanoidRearrangeController(
-        "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
-    )
-    #static_pose_controller.reset()
-    static_pose_controller.calculate_reach_pose(mn.Vector3(0, 1, 0))
-    static_joint_pose = np.array(static_pose_controller.joint_pose)
+    stop_pose_cache = {}
 
     scene_humanoids = []
     for placement in placements:
+        current_urdf_path = urdf_paths[urdf_index]
         humanoid_obj = aom.add_articulated_object_from_urdf(
-            urdf_paths[urdf_index],
+            current_urdf_path,
             fixed_base=True,
         )
         humanoid_obj.motion_type = MotionType.KINEMATIC
+
+        motion_data_path = None
+        if motion_data_paths is not None and urdf_index < len(motion_data_paths):
+            motion_data_path = motion_data_paths[urdf_index]
+        if motion_data_path is None:
+            inferred_motion_path = current_urdf_path.replace(
+                ".urdf", "_motion_data_smplx.pkl"
+            )
+            if os.path.exists(inferred_motion_path):
+                motion_data_path = inferred_motion_path
+
+        if motion_data_path is not None and os.path.exists(motion_data_path):
+            if motion_data_path not in stop_pose_cache:
+                pose_controller = HumanoidRearrangeController(motion_data_path)
+                pose_controller.calculate_stop_pose()
+                stop_pose_cache[motion_data_path] = np.array(
+                    pose_controller.joint_pose, dtype=np.float32
+                )
+            humanoid_obj.joint_positions = stop_pose_cache[motion_data_path]
+        else:
+            warnings.warn(
+                f"No motion_data_path found for static humanoid '{current_urdf_path}'. Leaving default joint pose (may look like T-pose)."
+            )
+
         humanoid_obj.translation = placement["pos"]
         humanoid_obj.rotation = mn.Quaternion.rotation(
             mn.Rad(placement["yaw"]), mn.Vector3(0.0, 1.0, 0.0)
         )
-        humanoid_obj.joint_positions = static_joint_pose
         urdf_index = (urdf_index + 1)
         scene_humanoids.append(humanoid_obj)
 
@@ -184,11 +204,16 @@ main_art_agent.base_rot = initial_rot
 
 # Specify each static agent's URDF here IN ORDER!!!!!!!!!
 urdf_paths = ["data/humanoids/humanoid_data/neutral_0/neutral_0.urdf", "data/humanoids/humanoid_data/female_3/female_3.urdf"]
+static_motion_paths = [
+    "data/humanoids/humanoid_data/neutral_0/neutral_0_motion_data_smplx.pkl",
+    "data/humanoids/humanoid_data/female_3/female_3_motion_data_smplx.pkl",
+]
 
 scene_humanoids = spawn_static_humanoids(
     sim,
     urdf_paths,
     scene_humanoid_placements,
+    static_motion_paths,
 )
 
 # ------------------------ GENERATE MOTIONS ------------------------------------ #
