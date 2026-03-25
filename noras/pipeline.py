@@ -38,23 +38,19 @@ def make_sim_cfg(agent_dict):
     sim_cfg.scene_dataset = "data/hab3_bench_assets/hab3-hssd/hab3-hssd.scene_dataset_config.json"
     sim_cfg.additional_object_paths = ['data/objects/ycb/configs/']
 
-    cfg = OmegaConf.create(sim_cfg)
-    cfg.agents = agent_dict
-
-    # More attempts at fixing agent_dict
-    # cfg = OmegaConf.structured(sim_cfg)
-    # cfg.agents = OmegaConf.create()
-    # for name, agent in agent_dict.items():
-    #     cfg.agents[name] = OmegaConf.structured(agent)
-
+    cfg = OmegaConf.structured(sim_cfg)
+    cfg.agents = OmegaConf.create(
+        {name: OmegaConf.structured(agent) for name, agent in agent_dict.items()}
+    )
     cfg.agents_order = list(cfg.agents.keys())
     # cfg.num_agents = len(cfg.agents_order)
+
     return cfg
 
 def make_hab_cfg(agent_dict, action_dict):
     sim_cfg = make_sim_cfg(agent_dict)
     task_cfg = TaskConfig(type="RearrangeEmptyTask-v0")
-    task_cfg.actions = {"humanoid_joint_action": HumanoidJointActionConfig()}
+    task_cfg.actions = {"agent_0_humanoid_joint_action": HumanoidJointActionConfig()}
     env_cfg = EnvironmentConfig()
     dataset_cfg = DatasetConfig(type="RearrangeDataset-v0", data_path="data/hab3_bench_assets/episode_datasets/small_large.json.gz")
     
@@ -72,6 +68,34 @@ def init_rearrange_env(agent_dict, action_dict):
     res_cfg = OmegaConf.create(hab_cfg)
     return Env(res_cfg)
 
+
+def spawn_static_humanoids(sim, urdf_path, placements):
+    """
+    Spawn scene-only humanoids as articulated objects.
+    These are not part of Rearrange task agents, so they do not clash
+    with task actions/dataset/simulator agent config state.
+    """
+    aom = sim.get_articulated_object_manager()
+    if not hasattr(aom, "add_articulated_object_from_urdf"):
+        raise RuntimeError(
+            "This habitat-sim build does not expose add_articulated_object_from_urdf."
+        )
+
+    scene_humanoids = []
+    for placement in placements:
+        humanoid_obj = aom.add_articulated_object_from_urdf(
+            urdf_path,
+            fixed_base=True,
+        )
+        humanoid_obj.motion_type = MotionType.KINEMATIC
+        humanoid_obj.translation = placement["pos"]
+        humanoid_obj.rotation = mn.Quaternion.rotation(
+            mn.Rad(placement["yaw"]), mn.Vector3(0.0, 1.0, 0.0)
+        )
+        scene_humanoids.append(humanoid_obj)
+
+    return scene_humanoids
+
 # --------------------------------------------------------------------------- #
 ##################### Initializing humanoids AND CAMERA in the scene #####################
 # --------------------------------------------------------------------------- #
@@ -87,17 +111,22 @@ main_agent_config.motion_data_path = "data/hab3_bench_assets/humanoids/female_0/
 # Define sensors that will be attached to this agent, here a third_rgb sensor and a head_rgb.
 # We will later talk about why giving the sensors these names
 main_agent_config.sim_sensors = {
-    "third_rgb": ThirdRGBSensorConfig(),
-    "head_rgb": HeadRGBSensorConfig(),
+    "third_rgb_1": ThirdRGBSensorConfig(),
+    "head_rgb_1": HeadRGBSensorConfig(),
 }
 
-# We create a dictionary with names of agents and their corresponding agent configuration
-agent_dict = {"main_agent": main_agent_config}
-              #"camera_agent": camera_agent_config}
+# Keep only the controllable task agent in Rearrange config.
+agent_dict = {"agent_0": main_agent_config}
+
+# Additional humanoids are scene-only articulated objects (not task agents).
+scene_humanoid_placements = [
+    {"pos": mn.Vector3(-2.8, 1, -8.0), "yaw": 0.75},
+    {"pos": mn.Vector3(-2.8, 1, -6.2), "yaw": 2},
+]
 
 # Define the actions
 action_dict = {
-    "humanoid_joint_action": HumanoidJointActionConfig()
+    "agent_0_humanoid_joint_action": HumanoidJointActionConfig()
 }
 env = init_rearrange_env(agent_dict, action_dict)
 
@@ -111,20 +140,15 @@ env.reset()
 sim = env.sim
 #sim.reset()
 
-# Start position!!!!
-initial_pos = mn.Vector3(-2, 0, -5)
-
-# Start angle (no rotation, in radians)
-initial_rot = 0.0
-
-initial_camera_pos = mn.Vector3(6.5, 2, -1.2)
+################ Placing of static camera ################
+initial_camera_pos = mn.Vector3(6.9, 2, -1.2)
 initial_camera_rot = mn.Vector3(-0.35, 1.7, 0) 
 # (0, 0, 0) faces directly north, aka the short wall in the living room without windows/up on the map pic
 # (0, 1.5, 0) faces the three windows to the west
 # (0, 2,5, 0) faces southwest
 # negative x-value in rotation tilts the camera downwards
 
-# Add a fixed scene camera for recording
+# Add the fixed scene camera for recording
 camera_sensor_spec = habitat_sim.CameraSensorSpec()
 camera_sensor_spec.sensor_type = habitat_sim.SensorType.COLOR
 camera_sensor_spec.uuid = "static_cam"
@@ -133,15 +157,28 @@ camera_sensor_spec.position = initial_camera_pos
 camera_sensor_spec.orientation = initial_camera_rot
 sim.add_sensor(camera_sensor_spec, 0)
 
-# Initalize the humanoid
-art_agent = sim.articulated_agent
-art_agent.base_pos = initial_pos
-art_agent.base_rot = initial_rot
+################ Inital values p placing for humanoids ################
+# Start position for walking agent!!!!
+initial_pos = mn.Vector3(-2, 0, -5)
+
+# Start angle (no rotation, in radians)
+initial_rot = 0.0
+
+# Initalize the humanoids
+main_art_agent = sim.get_agent_data(0).articulated_agent
+main_art_agent.base_pos = initial_pos
+main_art_agent.base_rot = initial_rot
+
+scene_humanoids = spawn_static_humanoids(
+    sim,
+    urdf_path,
+    scene_humanoid_placements,
+)
 
 # ------------------------ GENERATE MOTIONS ------------------------------------ #
 
 # We reset the controller
-humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
+humanoid_controller.reset(main_art_agent.base_transformation)
 observations = []
 # obs = ["camera_agent"]["static_cam"]
 
@@ -151,7 +188,7 @@ target_pos = mn.Vector3(-0.001, 0, -0.005)
 #            ↑  ↑  ↑
 #          left up forward
 # Generate the fixed target position to walk towards
-target_position = env.sim.articulated_agent.base_pos + target_pos
+target_position = main_art_agent.base_pos + target_pos
 
 num_iter = 100
 for _ in range(num_iter):
@@ -161,7 +198,7 @@ for _ in range(num_iter):
     # The get_pose function gives as a humanoid pose in the same format as HumanoidJointAction
     new_pose = humanoid_controller.get_pose()
     action_dict = {
-        "action": "humanoid_joint_action",
+        "action": "agent_0_humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
     _ = env.step(action_dict)
@@ -170,14 +207,14 @@ for _ in range(num_iter):
 
 # ---------- LOOP 2: turn and walk forward in new direction ----------
 # Set new start pos
-art_agent.base_pos = target_pos
+main_art_agent.base_pos = target_pos
 
 # Set number of iterations to dictate walking distance
 num_iter=150
 
 # Set new target position
 target_pos = mn.Vector3(-7, 0, -2)  # Adjust the distance as needed
-target_position = env.sim.articulated_agent.base_pos + target_pos
+target_position = main_art_agent.base_pos + target_pos
 
 for _ in range(num_iter):
     # This computes a pose that moves the agent to the fixed target position
@@ -186,7 +223,7 @@ for _ in range(num_iter):
     # The get_pose function gives as a humanoid pose in the same format as HumanoidJointAction
     new_pose = humanoid_controller.get_pose()
     action_dict = {
-        "action": "humanoid_joint_action",
+        "action": "agent_0_humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
     _ = env.step(action_dict)
@@ -195,11 +232,11 @@ for _ in range(num_iter):
 
 # ---------- LOOP 3: turn again  ----------
 # Set new start pos
-art_agent.base_pos = target_pos
+main_art_agent.base_pos = target_pos
 
 # Set new target position
 target_pos = mn.Vector3(-7, 0, 2) 
-target_position = env.sim.articulated_agent.base_pos + target_pos
+target_position = main_art_agent.base_pos + target_pos
 
 # Set number of iterations to dictate walking distance
 num_iter=150
@@ -211,7 +248,7 @@ for _ in range(num_iter):
     # The get_pose function gives as a humanoid pose in the same format as HumanoidJointAction
     new_pose = humanoid_controller.get_pose()
     action_dict = {
-        "action": "humanoid_joint_action",
+        "action": "agent_0_humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
     _ = env.step(action_dict)
