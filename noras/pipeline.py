@@ -83,32 +83,13 @@ main_agent_config.articulated_agent_urdf = urdf_path
 main_agent_config.articulated_agent_type = "KinematicHumanoid"
 main_agent_config.motion_data_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
 
+
 # Define sensors that will be attached to this agent, here a third_rgb sensor and a head_rgb.
 # We will later talk about why giving the sensors these names
 main_agent_config.sim_sensors = {
     "third_rgb": ThirdRGBSensorConfig(),
-   "head_rgb": HeadRGBSensorConfig(),
+    "head_rgb": HeadRGBSensorConfig(),
 }
-
-camera_agent_config = AgentConfig()
-
-# Fixing the action_dict becoming larger
-# camera_agent_config.articulated_agent_type = ""
-# camera_agent_config.articulated_agent_urdf = ""
-# camera_agent_config.motion_data_path = ""
-
-# No body needed,just a rig
-# camera_sensor = HeadRGBSensorConfig()
-# camera_sensor.uuid = "static cam"
-# camera_sensor.width = 1280
-# camera_sensor.height = 720
-
-# Position relative to the agent
-# camera_sensor.position = [0, 1.5, 0]  # 2 units above the agent
-
-# camera_agent_config.sim_sensors = {
-#     "static cam": camera_sensor
-# }
 
 # We create a dictionary with names of agents and their corresponding agent configuration
 agent_dict = {"main_agent": main_agent_config}
@@ -130,29 +111,32 @@ env.reset()
 sim = env.sim
 #sim.reset()
 
-# Acces second agent (the camera rig)
-#camera_agent = sim.get_agent(1)
-
-# Set the camera to be static (not affected by physics)
-# camera_pos = mn.Vector3(0, 1.5, 0)  # TODO: adjust values
-# camera_agent.scene_node().translation = camera_pos
-
-art_agent = sim.articulated_agent
-
 # Start position!!!!
 initial_pos = mn.Vector3(-2, 0, -5)
-art_agent.base_pos = initial_pos
 
 # Start angle (no rotation, in radians)
 initial_rot = 0.0
+
+initial_camera_pos = mn.Vector3(6.5, 2, -1.2)
+initial_camera_rot = mn.Vector3(-0.35, 1.7, 0) 
+# (0, 0, 0) faces directly north, aka the short wall in the living room without windows/up on the map pic
+# (0, 1.5, 0) faces the three windows to the west
+# (0, 2,5, 0) faces southwest
+# negative x-value in rotation tilts the camera downwards
+
+# Add a fixed scene camera for recording
+camera_sensor_spec = habitat_sim.CameraSensorSpec()
+camera_sensor_spec.sensor_type = habitat_sim.SensorType.COLOR
+camera_sensor_spec.uuid = "static_cam"
+camera_sensor_spec.resolution = [720, 1280]
+camera_sensor_spec.position = initial_camera_pos
+camera_sensor_spec.orientation = initial_camera_rot
+sim.add_sensor(camera_sensor_spec, 0)
+
+# Initalize the humanoid
+art_agent = sim.articulated_agent
+art_agent.base_pos = initial_pos
 art_agent.base_rot = initial_rot
-
-# ------------------------ MAP COORDINATES ------------------------------------ #
-# Biggest scene:
-# bottom wall has x=0, and x > 0 is outside the flat
-
-# Smallest scene:
-# 
 
 # ------------------------ GENERATE MOTIONS ------------------------------------ #
 
@@ -180,20 +164,16 @@ for _ in range(num_iter):
         "action": "humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
-    obs = env.step(action_dict)
-
-    # Extract only camera agent view
-    #observations.append({"static_cam": obs["camera_agent"]["static cam"]})
-    observations.append(obs)
+    _ = env.step(action_dict)
+    sensor_obs = sim.get_sensor_observations()
+    observations.append({"static_cam": sensor_obs["static_cam"]})
 
 # ---------- LOOP 2: turn and walk forward in new direction ----------
 # Set new start pos
 art_agent.base_pos = target_pos
-num_iter=150
 
-# Reset the controller with the new transformation
-# TODO: how to make the camera stay smooth?
-#humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
+# Set number of iterations to dictate walking distance
+num_iter=150
 
 # Set new target position
 target_pos = mn.Vector3(-7, 0, -2)  # Adjust the distance as needed
@@ -209,23 +189,20 @@ for _ in range(num_iter):
         "action": "humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
-    obs = env.step(action_dict)
-
-    # Extract only camera agent view
-    # observations.append({"static_cam": obs["camera_agent"]["static cam"]})
-    observations.append(obs)
+    _ = env.step(action_dict)
+    sensor_obs = sim.get_sensor_observations()
+    observations.append({"static_cam": sensor_obs["static_cam"]})
 
 # ---------- LOOP 3: turn again  ----------
 # Set new start pos
 art_agent.base_pos = target_pos
 
-# Reset the controller with the new transformation
-# TODO: how to make the camera stay smooth?
-# humanoid_controller.reset(env.sim.articulated_agent.base_transformation)
-
-# Sety new target position
+# Set new target position
 target_pos = mn.Vector3(-7, 0, 2) 
 target_position = env.sim.articulated_agent.base_pos + target_pos
+
+# Set number of iterations to dictate walking distance
+num_iter=150
 
 for _ in range(num_iter):
     # This computes a pose that moves the agent to the fixed target position
@@ -237,11 +214,9 @@ for _ in range(num_iter):
         "action": "humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
-    obs = env.step(action_dict)
-
-    # Extract only camera agent view
-    # observations.append({"static_cam": obs["camera_agent"]["static cam"]})
-    observations.append(obs)
+    _ = env.step(action_dict)
+    sensor_obs = sim.get_sensor_observations()
+    observations.append({"static_cam": sensor_obs["static_cam"]})
 
 
 
@@ -249,7 +224,7 @@ for _ in range(num_iter):
 
 vut.make_video(
     observations,
-    "third_rgb",
+    "static_cam",
     "color",
     "robot_tutorial_video_test",
     open_vid=True,
