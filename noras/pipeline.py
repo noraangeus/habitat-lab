@@ -38,15 +38,14 @@ def make_sim_cfg(agent_dict):
     sim_cfg.scene_dataset = "data/hab3_bench_assets/hab3-hssd/hab3-hssd.scene_dataset_config.json"
     sim_cfg.additional_object_paths = ['data/objects/ycb/configs/']
 
-    # cfg = OmegaConf.create(sim_cfg)
-    # # Set the scene agents
-    # cfg.agents = agent_dict
+    cfg = OmegaConf.create(sim_cfg)
+    cfg.agents = agent_dict
 
     # More attempts at fixing agent_dict
-    cfg = OmegaConf.structured(sim_cfg)
-    cfg.agents = OmegaConf.create()
-    for name, agent in agent_dict.items():
-        cfg.agents[name] = OmegaConf.structured(agent)
+    # cfg = OmegaConf.structured(sim_cfg)
+    # cfg.agents = OmegaConf.create()
+    # for name, agent in agent_dict.items():
+    #     cfg.agents[name] = OmegaConf.structured(agent)
 
     cfg.agents_order = list(cfg.agents.keys())
     # cfg.num_agents = len(cfg.agents_order)
@@ -94,26 +93,26 @@ main_agent_config.sim_sensors = {
 camera_agent_config = AgentConfig()
 
 # Fixing the action_dict becoming larger
-camera_agent_config.articulated_agent_type = ""
-camera_agent_config.articulated_agent_urdf = ""
-camera_agent_config.motion_data_path = ""
+# camera_agent_config.articulated_agent_type = ""
+# camera_agent_config.articulated_agent_urdf = ""
+# camera_agent_config.motion_data_path = ""
 
 # No body needed,just a rig
-camera_sensor = HeadRGBSensorConfig()
-camera_sensor.uuid = "static cam"
-camera_sensor.width = 1280
-camera_sensor.height = 720
+# camera_sensor = HeadRGBSensorConfig()
+# camera_sensor.uuid = "static cam"
+# camera_sensor.width = 1280
+# camera_sensor.height = 720
 
 # Position relative to the agent
-camera_sensor.position = [0, 1.5, 0]  # 2 units above the agent
+# camera_sensor.position = [0, 1.5, 0]  # 2 units above the agent
 
-camera_agent_config.sim_sensors = {
-    "static cam": camera_sensor
-}
+# camera_agent_config.sim_sensors = {
+#     "static cam": camera_sensor
+# }
 
 # We create a dictionary with names of agents and their corresponding agent configuration
-agent_dict = {"main_agent": main_agent_config,
-              "camera_agent": camera_agent_config}
+agent_dict = {"main_agent": main_agent_config}
+              #"camera_agent": camera_agent_config}
 
 # Define the actions
 action_dict = {
@@ -132,11 +131,11 @@ sim = env.sim
 #sim.reset()
 
 # Acces second agent (the camera rig)
-camera_agent = sim.get_agent(1)
+#camera_agent = sim.get_agent(1)
 
 # Set the camera to be static (not affected by physics)
-camera_pos = mn.Vector3(0, 1.5, 0)  # TODO: adjust values
-camera_agent.scene_node().translation = camera_pos
+# camera_pos = mn.Vector3(0, 1.5, 0)  # TODO: adjust values
+# camera_agent.scene_node().translation = camera_pos
 
 art_agent = sim.articulated_agent
 
@@ -184,7 +183,8 @@ for _ in range(num_iter):
     obs = env.step(action_dict)
 
     # Extract only camera agent view
-    observations.append({"static_cam": obs["camera_agent"]["static cam"]})
+    #observations.append({"static_cam": obs["camera_agent"]["static cam"]})
+    observations.append(obs)
 
 # ---------- LOOP 2: turn and walk forward in new direction ----------
 # Set new start pos
@@ -212,7 +212,8 @@ for _ in range(num_iter):
     obs = env.step(action_dict)
 
     # Extract only camera agent view
-    observations.append({"static_cam": obs["camera_agent"]["static cam"]})
+    # observations.append({"static_cam": obs["camera_agent"]["static cam"]})
+    observations.append(obs)
 
 # ---------- LOOP 3: turn again  ----------
 # Set new start pos
@@ -239,7 +240,8 @@ for _ in range(num_iter):
     obs = env.step(action_dict)
 
     # Extract only camera agent view
-    observations.append({"static_cam": obs["camera_agent"]["static cam"]})
+    # observations.append({"static_cam": obs["camera_agent"]["static cam"]})
+    observations.append(obs)
 
 
 
@@ -247,7 +249,7 @@ for _ in range(num_iter):
 
 vut.make_video(
     observations,
-    "static_cam",
+    "third_rgb",
     "color",
     "robot_tutorial_video_test",
     open_vid=True,
