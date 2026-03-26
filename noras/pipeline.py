@@ -89,32 +89,83 @@ def spawn_static_humanoids(sim, urdf_paths, placements, static_motion_paths):
             "This habitat-sim build does not expose add_articulated_object_from_urdf."
         )
 
-    # Ensures each humanoid gets a different URDF
+    # Ensures each humanoid gets a different URDF & motion path
     urdf_index = 0
     motion_path_index = 0
     scene_humanoids = []
 
     for placement in placements:
         static_pose_controller = HumanoidRearrangeController(static_motion_paths[motion_path_index])
-        #static_pose_controller.reset()
-        static_pose_controller.calculate_reach_pose(mn.Vector3(0, 1, 0))
+        static_yaw_quat = mn.Quaternion.rotation(
+            mn.Rad(placement["yaw"]), mn.Vector3(0.0, 1.0, 0.0)
+        )
+        static_obj_transform = mn.Matrix4.from_(
+            static_yaw_quat.to_matrix(), placement["pos"]
+        )
+        static_pose_controller.reset(static_obj_transform)
+        static_pose_controller.calculate_stop_pose()
         static_joint_pose = np.array(static_pose_controller.joint_pose)
         
         humanoid_obj = aom.add_articulated_object_from_urdf(
             urdf_paths[urdf_index],
             fixed_base=True,
         )
+        
+        # TODO: failed attempt at resetting the controller so that humanoids don't look weird
+        humanoid_obj.set_joint_transforms(
+            static_pose_controller.pose_humanoid_joints,
+            static_obj_transform,
+        )
+        
         humanoid_obj.motion_type = MotionType.KINEMATIC
         humanoid_obj.translation = placement["pos"]
-        humanoid_obj.rotation = mn.Quaternion.rotation(
-            mn.Rad(placement["yaw"]), mn.Vector3(0.0, 1.0, 0.0)
-        )
+        humanoid_obj.rotation = static_yaw_quat
         humanoid_obj.joint_positions = static_joint_pose
+
         urdf_index = (urdf_index + 1)
         motion_path_index = (motion_path_index + 1)
+
         scene_humanoids.append(humanoid_obj)
 
     return scene_humanoids
+
+
+def build_static_idle_pose_library(static_motion_paths):
+    """
+    Precompute a few subtle upper-body poses per humanoid model.
+    We then blend between these poses during loop 1.
+    """
+    idle_pose_library = []
+
+    for motion_path in static_motion_paths:
+        pose_controller = HumanoidRearrangeController(motion_path)
+
+        pose_controller.calculate_stop_pose()
+        neutral_pose = np.array(pose_controller.joint_pose, dtype=np.float32)
+
+        pose_controller.calculate_stop_pose()
+        pose_controller.calculate_reach_pose(mn.Vector3(0.12, 0.78, 0.03), index_hand=0)
+        right_pose = np.array(pose_controller.joint_pose, dtype=np.float32)
+
+        pose_controller.calculate_stop_pose()
+        pose_controller.calculate_reach_pose(mn.Vector3(-0.12, 0.78, 0.03), index_hand=1)
+        left_pose = np.array(pose_controller.joint_pose, dtype=np.float32)
+
+        pose_controller.calculate_stop_pose()
+        pose_controller.calculate_reach_pose(mn.Vector3(0.08, 0.80, 0.04), index_hand=0)
+        pose_controller.calculate_reach_pose(mn.Vector3(-0.08, 0.80, 0.04), index_hand=1)
+        both_pose = np.array(pose_controller.joint_pose, dtype=np.float32)
+
+        idle_pose_library.append(
+            {
+                "neutral": neutral_pose,
+                "right": right_pose,
+                "left": left_pose,
+                "both": both_pose,
+            }
+        )
+
+    return idle_pose_library
 
 # --------------------------------------------------------------------------- #
 ##################### Initializing humanoids AND CAMERA in the scene #####################
@@ -215,6 +266,7 @@ scene_humanoids = spawn_static_humanoids(
     scene_humanoid_placements,
     static_motion_paths
 )
+static_idle_pose_library = build_static_idle_pose_library(static_motion_paths)
 
 # ------------------------ GENERATE MOTIONS ------------------------------------ #
 
@@ -251,24 +303,22 @@ for step_i in range(num_iter):
         "action_args": {"human_joints_trans": new_pose}
     }
 
-    # TODO: fix idle animations so they're not so... weird
-    # Give each static humanoid a small independent idle motion.
+    # Upper-body-only idle motion by blending precomputed arm poses.
     for humanoid_i, humanoid_obj in enumerate(scene_humanoids):
-        base_pos = scene_humanoid_placements[humanoid_i]["pos"]
-        base_yaw = scene_humanoid_placements[humanoid_i]["yaw"]
-        phase = (0.22 * step_i) + (1.35 * humanoid_i)
-        sway_x = 0.035 * np.sin(phase)
-        sway_z = 0.025 * np.cos(0.8 * phase)
-        yaw_offset = 0.10 * np.sin(0.6 * phase)
+        pose_set = static_idle_pose_library[humanoid_i]
+        phase = (0.12 * step_i) + (0.9 * humanoid_i)
 
-        humanoid_obj.translation = mn.Vector3(
-            base_pos[0] + sway_x,
-            base_pos[1],
-            base_pos[2] + sway_z,
-        )
-        humanoid_obj.rotation = mn.Quaternion.rotation(
-            mn.Rad(base_yaw + yaw_offset), mn.Vector3(0.0, 1.0, 0.0)
-        )
+        right_w = max(0.0, np.sin(phase)) * 0.08
+        left_w = max(0.0, np.sin(phase + 1.7)) * 0.06
+        both_w = max(0.0, np.sin(phase + 3.1)) * 0.04
+
+        blended_pose = pose_set["neutral"].copy()
+        blended_pose += right_w * (pose_set["right"] - pose_set["neutral"])
+        blended_pose += left_w * (pose_set["left"] - pose_set["neutral"])
+        blended_pose += both_w * (pose_set["both"] - pose_set["neutral"])
+
+        humanoid_obj.joint_positions = blended_pose.astype(np.float32)
+
 
     _ = env.step(action_dict)
     sensor_obs = sim.get_sensor_observations()
