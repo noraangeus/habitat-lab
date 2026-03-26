@@ -1,5 +1,9 @@
-# The use of the task dataset RearrangeDataset-v0 introduces limitations to number of agents in scene,
+# The use of the task dataset RearrangeDataset-v0 introduces limitations to number of agents in scene
 # You must circumvent it if num of agents in scene > 2
+# Note that coordinates vary per agent for some reason
+# E.g.the walking agent being on y=0 puts it with feet on the floor,
+# but all static agents must be y=1 to be floor height
+# Which direction x and z produce also vary, so beware that coordinates do not make sense
 
 import habitat_sim
 import magnum as mn
@@ -70,8 +74,10 @@ def init_rearrange_env(agent_dict, action_dict):
     res_cfg = OmegaConf.create(hab_cfg)
     return Env(res_cfg)
 
-
-def spawn_static_humanoids(sim, urdf_paths, placements):
+# @param sim: the habitat-sim simulator instance
+# @param urdf_paths: list of paths to humanoid URDFs to spawn
+# @param placements: list of dicts with "pos" (mn.Vector3) and "yaw" (float in radians) for each humanoid
+def spawn_static_humanoids(sim, urdf_paths, placements, static_motion_paths):
     """
     Spawn scene-only humanoids as articulated objects.
     These are not part of Rearrange task agents, so they do not clash
@@ -85,15 +91,15 @@ def spawn_static_humanoids(sim, urdf_paths, placements):
 
     # Ensures each humanoid gets a different URDF
     urdf_index = 0
-    static_pose_controller = HumanoidRearrangeController(
-        "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
-    )
-    #static_pose_controller.reset()
-    static_pose_controller.calculate_reach_pose(mn.Vector3(0, 1, 0))
-    static_joint_pose = np.array(static_pose_controller.joint_pose)
-
+    motion_path_index = 0
     scene_humanoids = []
+
     for placement in placements:
+        static_pose_controller = HumanoidRearrangeController(static_motion_paths[motion_path_index])
+        #static_pose_controller.reset()
+        static_pose_controller.calculate_reach_pose(mn.Vector3(0, 1, 0))
+        static_joint_pose = np.array(static_pose_controller.joint_pose)
+        
         humanoid_obj = aom.add_articulated_object_from_urdf(
             urdf_paths[urdf_index],
             fixed_base=True,
@@ -105,6 +111,7 @@ def spawn_static_humanoids(sim, urdf_paths, placements):
         )
         humanoid_obj.joint_positions = static_joint_pose
         urdf_index = (urdf_index + 1)
+        motion_path_index = (motion_path_index + 1)
         scene_humanoids.append(humanoid_obj)
 
     return scene_humanoids
@@ -115,10 +122,11 @@ def spawn_static_humanoids(sim, urdf_paths, placements):
 
 # Define the agent configuration
 main_agent_config = AgentConfig()
-urdf_path = "data/hab3_bench_assets/humanoids/female_0/female_0.urdf"
+urdf_path =  "data/humanoids/humanoid_data/male_0/male_0.urdf"
+main_agent_motion_path = "data/humanoids/humanoid_data/male_0/male_0_motion_data_smplx.pkl"
 main_agent_config.articulated_agent_urdf = urdf_path
 main_agent_config.articulated_agent_type = "KinematicHumanoid"
-main_agent_config.motion_data_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl"
+main_agent_config.motion_data_path = main_agent_motion_path
 
 
 # Define sensors that will be attached to this agent, here a third_rgb sensor and a head_rgb.
@@ -128,13 +136,19 @@ main_agent_config.sim_sensors = {
     "head_rgb_1": HeadRGBSensorConfig(),
 }
 
-# Keep only the controllable task agent in Rearrange config.
+# Keep only the controllable task agent in the Rearrange config.
 agent_dict = {"agent_0": main_agent_config}
+
+
+# Robot coordinates
+robot_pos = mn.Vector3(-3.8, 1, -6.0)
 
 # Additional humanoids are scene-only articulated objects (not task agents).
 scene_humanoid_placements = [
-    {"pos": mn.Vector3(-2.8, 1, -8.0), "yaw": 0.75},
-    {"pos": mn.Vector3(-2.8, 1, -6.2), "yaw": 2},
+    {"pos": robot_pos, "yaw": 0.75},
+    {"pos": mn.Vector3(-4.0, 1, -5.2), "yaw": 2.7},
+    {"pos": mn.Vector3(-3.7, 1, -4.5), "yaw": 2.3},
+    {"pos": mn.Vector3(-3.1, 1, -4.3), "yaw": 3.6},
 ]
 
 # Define the actions
@@ -143,10 +157,8 @@ action_dict = {
 }
 env = init_rearrange_env(agent_dict, action_dict)
 
-# As before, we first define the controller, here we use a special motion file we provide for each agent.
-motion_path = "data/hab3_bench_assets/humanoids/female_0/female_0_motion_data_smplx.pkl" 
-# We define here humanoid controller
-humanoid_controller = HumanoidRearrangeController(motion_path)
+# Define here humanoid controller for the main agent
+humanoid_controller = HumanoidRearrangeController(main_agent_motion_path)
 
 # ------------------------ SET INITIAL AGENT AND CAM CONFIGURATION ----------------------------- #
 env.reset()
@@ -154,12 +166,14 @@ sim = env.sim
 #sim.reset()
 
 ################ Placing of static camera ################
-initial_camera_pos = mn.Vector3(6.9, 2, -1.2)
-initial_camera_rot = mn.Vector3(-0.35, 1.7, 0) 
-# (0, 0, 0) faces directly north, aka the short wall in the living room without windows/up on the map pic
-# (0, 1.5, 0) faces the three windows to the west
-# (0, 2,5, 0) faces southwest
-# negative x-value in rotation tilts the camera downwards
+initial_camera_pos = mn.Vector3(6.9, 2, 0.9)
+initial_camera_rot = mn.Vector3(-0.35, 1.4, 0) 
+"""
+(0, 0, 0) faces directly north, aka the short wall in the living room without windows/up on the map pic
+(0, 1.5, 0) faces the three windows to the west
+(0, 2,5, 0) faces southwest
+negative x-value in rotation tilts the camera downwards
+"""
 
 # Add the fixed scene camera for recording
 camera_sensor_spec = habitat_sim.CameraSensorSpec()
@@ -172,7 +186,7 @@ sim.add_sensor(camera_sensor_spec, 0)
 
 ################ Inital values p placing for humanoids ################
 # Start position for walking agent!!!!
-initial_pos = mn.Vector3(-2, 0, -5)
+initial_pos = mn.Vector3(-2.5, 0.25, -7.5)
 
 # Start angle (no rotation, in radians)
 initial_rot = 0.0
@@ -183,31 +197,50 @@ main_art_agent.base_pos = initial_pos
 main_art_agent.base_rot = initial_rot
 
 # Specify each static agent's URDF here IN ORDER!!!!!!!!!
-urdf_paths = ["data/humanoids/humanoid_data/neutral_0/neutral_0.urdf", "data/humanoids/humanoid_data/female_3/female_3.urdf"]
+urdf_paths = ["data/humanoids/humanoid_data/neutral_1/neutral_1.urdf", 
+              "data/humanoids/humanoid_data/female_3/female_3.urdf", 
+              "data/humanoids/humanoid_data/male_1/male_1.urdf", 
+              "data/humanoids/humanoid_data/female_1/female_1.urdf"]
+static_motion_paths = [
+    "data/humanoids/humanoid_data/neutral_1/neutral_1_motion_data_smplx.pkl",
+    "data/humanoids/humanoid_data/female_3/female_3_motion_data_smplx.pkl",
+    "data/humanoids/humanoid_data/male_1/male_1_motion_data_smplx.pkl",
+    "data/humanoids/humanoid_data/female_1/female_1_motion_data_smplx.pkl",
+]
 
+ # Generate the static humanaoids by calling spawner
 scene_humanoids = spawn_static_humanoids(
     sim,
     urdf_paths,
     scene_humanoid_placements,
+    static_motion_paths
 )
 
 # ------------------------ GENERATE MOTIONS ------------------------------------ #
 
 # We reset the controller
 humanoid_controller.reset(main_art_agent.base_transformation)
+# this controls the walking speed so it can be decreased
+# lin_speed = 1 is normal, less than is slower and higher faster
+humanoid_controller.set_framerate_for_linspeed(
+    lin_speed=0.8,
+    ang_speed=2.0,
+    ctrl_freq=30.0,
+)
 observations = []
 # obs = ["camera_agent"]["static_cam"]
 
-# ---------- LOOP 1: walk forward ----------
-target_pos = mn.Vector3(-0.001, 0, -0.005)
+# ---------- LOOP 1: walk some ----------
+target_pos = mn.Vector3(3, 0.25, 25)
 # mn.Vector3(x, y, z)
 #            ↑  ↑  ↑
 #          left up forward
 # Generate the fixed target position to walk towards
-target_position = main_art_agent.base_pos + target_pos
+# target_position = main_art_agent.base_pos + target_pos
+target_position = target_pos
 
-num_iter = 100
-for _ in range(num_iter):
+num_iter = 60
+for step_i in range(num_iter):
     # This computes a pose that moves the agent to the fixed target position
     humanoid_controller.calculate_walk_pose(target_position)
     
@@ -217,45 +250,40 @@ for _ in range(num_iter):
         "action": "agent_0_humanoid_joint_action",
         "action_args": {"human_joints_trans": new_pose}
     }
+
+    # TODO: fix idle animations so they're not so... weird
+    # Give each static humanoid a small independent idle motion.
+    for humanoid_i, humanoid_obj in enumerate(scene_humanoids):
+        base_pos = scene_humanoid_placements[humanoid_i]["pos"]
+        base_yaw = scene_humanoid_placements[humanoid_i]["yaw"]
+        phase = (0.22 * step_i) + (1.35 * humanoid_i)
+        sway_x = 0.035 * np.sin(phase)
+        sway_z = 0.025 * np.cos(0.8 * phase)
+        yaw_offset = 0.10 * np.sin(0.6 * phase)
+
+        humanoid_obj.translation = mn.Vector3(
+            base_pos[0] + sway_x,
+            base_pos[1],
+            base_pos[2] + sway_z,
+        )
+        humanoid_obj.rotation = mn.Quaternion.rotation(
+            mn.Rad(base_yaw + yaw_offset), mn.Vector3(0.0, 1.0, 0.0)
+        )
+
     _ = env.step(action_dict)
     sensor_obs = sim.get_sensor_observations()
     observations.append({"static_cam": sensor_obs["static_cam"]})
 
-# ---------- LOOP 2: turn and walk forward in new direction ----------
-# Set new start pos
-main_art_agent.base_pos = target_pos
-
-# Set number of iterations to dictate walking distance
-num_iter=150
-
-# Set new target position
-target_pos = mn.Vector3(-7, 0, -2)  # Adjust the distance as needed
-target_position = main_art_agent.base_pos + target_pos
-
-for _ in range(num_iter):
-    # This computes a pose that moves the agent to the fixed target position
-    humanoid_controller.calculate_walk_pose(target_position)
-    
-    # The get_pose function gives as a humanoid pose in the same format as HumanoidJointAction
-    new_pose = humanoid_controller.get_pose()
-    action_dict = {
-        "action": "agent_0_humanoid_joint_action",
-        "action_args": {"human_joints_trans": new_pose}
-    }
-    _ = env.step(action_dict)
-    sensor_obs = sim.get_sensor_observations()
-    observations.append({"static_cam": sensor_obs["static_cam"]})
-
-# ---------- LOOP 3: turn again  ----------
+# ---------- LOOP 2: change direction and walk  ----------
 # Set new start pos
 main_art_agent.base_pos = target_pos
 
 # Set new target position
-target_pos = mn.Vector3(-7, 0, 2) 
-target_position = main_art_agent.base_pos + target_pos
+target_pos = mn.Vector3(-5, 0, 30) 
+target_position = target_pos
 
 # Set number of iterations to dictate walking distance
-num_iter=150
+num_iter = 70
 
 for _ in range(num_iter):
     # This computes a pose that moves the agent to the fixed target position
@@ -270,6 +298,32 @@ for _ in range(num_iter):
     _ = env.step(action_dict)
     sensor_obs = sim.get_sensor_observations()
     observations.append({"static_cam": sensor_obs["static_cam"]})
+
+# ---------- LOOP 3: turn towards robot ----------
+# Set new start pos
+main_art_agent.base_pos = target_pos
+
+# Set number of iterations to dictate walking distance
+num_iter = 50
+
+# Set new target position
+target_pos = mn.Vector3(-8, 0, -10)  # Adjust the distance as needed
+target_position = target_pos
+
+for _ in range(num_iter):
+    # This computes a pose that moves the agent to the fixed target position
+    humanoid_controller.calculate_turn_pose(target_position)
+    
+    # The get_pose function gives as a humanoid pose in the same format as HumanoidJointAction
+    new_pose = humanoid_controller.get_pose()
+    action_dict = {
+        "action": "agent_0_humanoid_joint_action",
+        "action_args": {"human_joints_trans": new_pose}
+    }
+    _ = env.step(action_dict)
+    sensor_obs = sim.get_sensor_observations()
+    observations.append({"static_cam": sensor_obs["static_cam"]})
+
 
 
 
