@@ -1,5 +1,9 @@
 import magnum as mn
 import numpy as np
+import gzip
+import json
+import os
+from typing import Optional, Sequence
 
 from habitat.config.default_structured_configs import SimulatorConfig, HabitatSimV0Config, AgentConfig
 from omegaconf import OmegaConf
@@ -14,7 +18,117 @@ from habitat.articulated_agent_controllers import (
 )
 
 
-def make_sim_cfg(agent_dict):
+DEFAULT_HSSD_HAB_SCENE_DATASET = (
+    "data/versioned_data/hssd-hab/hssd-hab.scene_dataset_config.json"
+)
+DEFAULT_HSSD_HAB_SCENE = (
+    "data/versioned_data/hssd-hab/scenes/102343992.scene_instance.json"
+)
+DEFAULT_HSSD_HAB_EPISODE_DATASET = "noras/data/hssd_hab_empty.json.gz"
+DEFAULT_ADDITIONAL_OBJECT_PATHS = ["data/objects/ycb/configs/"]
+
+
+def get_hssd_hab_scene_path(scene_id: str) -> str:
+    return f"data/versioned_data/hssd-hab/scenes/{scene_id}.scene_instance.json"
+
+
+def _load_json_or_gz(file_path: str):
+    if file_path.endswith(".gz"):
+        with gzip.open(file_path, "rt", encoding="utf-8") as file_obj:
+            return json.load(file_obj)
+    with open(file_path, "r", encoding="utf-8") as file_obj:
+        return json.load(file_obj)
+
+
+def _write_json_or_gz(file_path: str, payload) -> None:
+    os.makedirs(os.path.dirname(file_path) or ".", exist_ok=True)
+    if file_path.endswith(".gz"):
+        with gzip.open(file_path, "wt", encoding="utf-8") as file_obj:
+            json.dump(payload, file_obj)
+        return
+    with open(file_path, "w", encoding="utf-8") as file_obj:
+        json.dump(payload, file_obj)
+
+
+def _build_default_hssd_hab_episode(scene_path: str, scene_dataset_path: str):
+    return {
+        "episode_id": "0",
+        "scene_id": scene_path,
+        "scene_dataset_config": scene_dataset_path,
+        "additional_obj_config_paths": list(DEFAULT_ADDITIONAL_OBJECT_PATHS),
+        "start_position": [0, 0, 0],
+        "start_rotation": [0, 0, 0, 1],
+        "info": {"object_labels": {}},
+        "ao_states": {},
+        "rigid_objs": [],
+        "targets": {},
+        "markers": [],
+        "name_to_receptacle": {},
+    }
+
+
+def _ensure_default_hssd_hab_episode_dataset(
+    episode_dataset_path: str,
+    scene_path: str,
+    scene_dataset_path: str,
+) -> None:
+    default_episode = _build_default_hssd_hab_episode(
+        scene_path=scene_path,
+        scene_dataset_path=scene_dataset_path,
+    )
+    default_payload = {"episodes": [default_episode]}
+
+    if not os.path.exists(episode_dataset_path):
+        _write_json_or_gz(episode_dataset_path, default_payload)
+        return
+
+    try:
+        payload = _load_json_or_gz(episode_dataset_path)
+    except Exception:
+        _write_json_or_gz(episode_dataset_path, default_payload)
+        return
+
+    if not isinstance(payload, dict):
+        _write_json_or_gz(episode_dataset_path, default_payload)
+        return
+
+    episodes = payload.get("episodes")
+    if not isinstance(episodes, list) or len(episodes) == 0:
+        _write_json_or_gz(episode_dataset_path, default_payload)
+        return
+
+    first_episode = episodes[0]
+    if not isinstance(first_episode, dict):
+        episodes[0] = default_episode
+        payload["episodes"] = episodes
+        _write_json_or_gz(episode_dataset_path, payload)
+        return
+
+    mutated = False
+    for key, value in default_episode.items():
+        if key not in first_episode:
+            first_episode[key] = value
+            mutated = True
+
+    if not isinstance(first_episode.get("info"), dict):
+        first_episode["info"] = {"object_labels": {}}
+        mutated = True
+    elif "object_labels" not in first_episode["info"]:
+        first_episode["info"]["object_labels"] = {}
+        mutated = True
+
+    if mutated:
+        episodes[0] = first_episode
+        payload["episodes"] = episodes
+        _write_json_or_gz(episode_dataset_path, payload)
+
+
+def make_sim_cfg(
+    agent_dict,
+    scene_path: str = DEFAULT_HSSD_HAB_SCENE,
+    scene_dataset_path: str = DEFAULT_HSSD_HAB_SCENE_DATASET,
+    additional_object_paths: Optional[Sequence[str]] = None,
+):
     # Start the scene config
     sim_cfg = SimulatorConfig(type="RearrangeSim-v0")
     
@@ -22,10 +136,11 @@ def make_sim_cfg(agent_dict):
     sim_cfg.habitat_sim_v0.enable_hbao = True
     sim_cfg.habitat_sim_v0.enable_physics = True
 
-    # Set up an example scene
-    sim_cfg.scene = "data/hab3_bench_assets/hab3-hssd/scenes/103997919_171031233.scene_instance.json"
-    sim_cfg.scene_dataset = "data/hab3_bench_assets/hab3-hssd/hab3-hssd.scene_dataset_config.json"
-    sim_cfg.additional_object_paths = ['data/objects/ycb/configs/']
+    sim_cfg.scene = scene_path
+    sim_cfg.scene_dataset = scene_dataset_path
+    sim_cfg.additional_object_paths = list(
+        additional_object_paths or DEFAULT_ADDITIONAL_OBJECT_PATHS
+    )
 
     cfg = OmegaConf.create(sim_cfg)
 
@@ -34,12 +149,25 @@ def make_sim_cfg(agent_dict):
     cfg.agents_order = list(cfg.agents.keys())
     return cfg
 
-def make_hab_cfg(agent_dict, action_dict):
-    sim_cfg = make_sim_cfg(agent_dict)
+def make_hab_cfg(
+    agent_dict,
+    action_dict,
+    scene_path: str = DEFAULT_HSSD_HAB_SCENE,
+    scene_dataset_path: str = DEFAULT_HSSD_HAB_SCENE_DATASET,
+    episode_dataset_path: str = DEFAULT_HSSD_HAB_EPISODE_DATASET,
+):
+    sim_cfg = make_sim_cfg(
+        agent_dict,
+        scene_path=scene_path,
+        scene_dataset_path=scene_dataset_path,
+    )
     task_cfg = TaskConfig(type="RearrangeEmptyTask-v0")
     task_cfg.actions = action_dict
     env_cfg = EnvironmentConfig()
-    dataset_cfg = DatasetConfig(type="RearrangeDataset-v0", data_path="data/hab3_bench_assets/episode_datasets/small_large.json.gz")
+    dataset_cfg = DatasetConfig(
+        type="RearrangeDataset-v0",
+        data_path=episode_dataset_path,
+    )
     
     hab_cfg = HabitatConfig()
     hab_cfg.environment = env_cfg
@@ -50,8 +178,25 @@ def make_hab_cfg(agent_dict, action_dict):
 
     return hab_cfg
 
-def init_rearrange_env(agent_dict, action_dict):
-    hab_cfg = make_hab_cfg(agent_dict, action_dict)
+def init_rearrange_env(
+    agent_dict,
+    action_dict,
+    scene_path: str = DEFAULT_HSSD_HAB_SCENE,
+    scene_dataset_path: str = DEFAULT_HSSD_HAB_SCENE_DATASET,
+    episode_dataset_path: str = DEFAULT_HSSD_HAB_EPISODE_DATASET,
+):
+    _ensure_default_hssd_hab_episode_dataset(
+        episode_dataset_path=episode_dataset_path,
+        scene_path=scene_path,
+        scene_dataset_path=scene_dataset_path,
+    )
+    hab_cfg = make_hab_cfg(
+        agent_dict,
+        action_dict,
+        scene_path=scene_path,
+        scene_dataset_path=scene_dataset_path,
+        episode_dataset_path=episode_dataset_path,
+    )
     res_cfg = OmegaConf.create(hab_cfg)
     return Env(res_cfg)
 
@@ -178,18 +323,18 @@ def spawn_static_humanoids(sim, urdf_paths, placements, static_motion_paths):
     for placement in placements:
         static_pose_controller = HumanoidRearrangeController(static_motion_paths[motion_path_index])
         
-        # Reset the controller with identity transform to initialize motion path
-        static_pose_controller.reset(mn.Matrix4())
-        
         static_yaw_quat = mn.Quaternion.rotation(
             mn.Rad(placement["yaw"]), mn.Vector3(0.0, 1.0, 0.0)
         )
         static_obj_transform = mn.Matrix4.from_(
             static_yaw_quat.to_matrix(), placement["pos"]
         )
-        static_pose_controller.reset(static_obj_transform)
         
-        # Calculate pose before creating the object
+        # Reset the controller right before pose calculation
+        static_pose_controller.reset(static_obj_transform)
+        static_pose_controller.calculate_stop_pose()
+
+        
         pose_name = placement.get("pose", "neutral")
         static_joint_pose = _build_static_joint_pose(
             static_pose_controller, pose_name
