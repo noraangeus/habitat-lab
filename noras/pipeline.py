@@ -16,7 +16,7 @@ from habitat.tasks.rearrange.utils import get_angle_to_pos
 
 from matplotlib import pyplot as plt
 
-from pipeline_utils import init_rearrange_env, generate_trajectory_points, spawn_static_humanoids, build_static_idle_pose_library
+from pipeline_utils import init_rearrange_env, generate_trajectory_points, spawn_static_humanoids, build_static_idle_pose_library, quick_debug_scene_views
 
 # --------------------------------------------------------------------------- #
 ##################### Initializing humanoids in the scene #####################
@@ -43,6 +43,10 @@ agent_dict = {"main_agent": main_agent_config,
 # Define the actions
 action_dict = {"humanoid_joint_action": HumanoidJointActionConfig()}
 env = init_rearrange_env(agent_dict, action_dict)
+
+# Define scene views for quick debugging and visualization
+scene_views = quick_debug_scene_views(env, views={"front": {"look_from": mn.Vector3(4,2,4), "look_at": mn.Vector3(0,0,0)}})
+input("Press Enter to start the simulation...")
 
 # Define the controller
 human_main_controller = HumanoidRearrangeController(main_agent_motion_path)
@@ -93,14 +97,25 @@ agent_location = {
 }
 
 ################ Placing of static camera ################
-cam_location = "dinner_table"
-camera_sensor_spec = habitat_sim.CameraSensorSpec()
-camera_sensor_spec.sensor_type = habitat_sim.SensorType.COLOR
-camera_sensor_spec.uuid = "static_cam"
-camera_sensor_spec.resolution = [720, 1280]
-camera_sensor_spec.position = camera_location[cam_location]["position"]
-camera_sensor_spec.orientation = camera_location[cam_location]["orientation"]
-sim.add_sensor(camera_sensor_spec, 0)
+cam_location_1 = "fridge"
+camera_sensor_spec_1 = habitat_sim.CameraSensorSpec()
+camera_sensor_spec_1.sensor_type = habitat_sim.SensorType.COLOR
+camera_sensor_spec_1.uuid = "static_cam_1"
+camera_sensor_spec_1.resolution = [720, 1280]
+camera_sensor_spec_1.position = camera_location[cam_location_1]["position"]
+camera_sensor_spec_1.orientation = camera_location[cam_location_1]["orientation"]
+sim.add_sensor(camera_sensor_spec_1, 0)
+
+cam_location_2 = "dinner_table"
+camera_sensor_spec_2 = habitat_sim.CameraSensorSpec()
+camera_sensor_spec_2.sensor_type = habitat_sim.SensorType.COLOR
+camera_sensor_spec_2.uuid = "static_cam_2"
+camera_sensor_spec_2.resolution = [720, 1280]
+camera_sensor_spec_2.position = camera_location[cam_location_2]["position"]
+camera_sensor_spec_2.orientation = camera_location[cam_location_2]["orientation"]
+sim.add_sensor(camera_sensor_spec_2, 0)
+
+
 
 
 ################ Generate Trajectories #################
@@ -140,7 +155,8 @@ human_main_agent.base_rot = get_angle_to_pos(pose_diff)
 human_main_controller.reset(human_main_agent.base_transformation)
 human_main_controller.set_framerate_for_linspeed(lin_speed=1, ang_speed=2.0, ctrl_freq=30.0,)
 
-observations = []
+observations_1 = []
+observations_2 = []
 
 trajectory_curvature = 2
 trajectory_num_points = 4
@@ -169,7 +185,8 @@ for next_goal in human_main_target_loc:
             env.step(action_dict)
 
             sensor_obs = sim.get_sensor_observations()
-            observations.append({"static_cam": sensor_obs["static_cam"]})
+            observations_1.append({"static_cam_1": sensor_obs["static_cam_1"]})
+            observations_2.append({"static_cam_2": sensor_obs["static_cam_2"]})
 
             if pose_diff.length() < epsilon:
                 break
@@ -185,13 +202,21 @@ action_dict = {
 }
 env.step(action_dict)
 sensor_obs = sim.get_sensor_observations()
-observations.append({"static_cam": sensor_obs["static_cam"]})
-
+observations_1.append({"static_cam_1": sensor_obs["static_cam_1"]})
+observations_2.append({"static_cam_2": sensor_obs["static_cam_2"]})
 
 vut.make_video(
-    observations,
-    "static_cam",
+    observations_1,
+    "static_cam_1",
     "color",
-    "robot_tutorial_video_test",
+    "robot_tutorial_test_1",
+    open_vid=True,
+)
+
+vut.make_video(
+    observations_2,
+    "static_cam_2",
+    "color",
+    "robot_tutorial_test_2",
     open_vid=True,
 )
